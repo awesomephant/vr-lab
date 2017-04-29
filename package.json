@@ -1,0 +1,13 @@
+{
+  "name": "vr-experiments",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Max Kohler",
+  "license": "MIT",
+  "dependencies": {
+    "grunt": "^1.0.1",
+    "grunt-browser-sync": "^2.2.0",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-watch": "*"
+  }
+}
