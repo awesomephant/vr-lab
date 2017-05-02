@@ -1,0 +1,8 @@
+{
+  "name": "Max's VR Stuff",
+  "short_name": "VRStuff",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#000",
+  "description": ""
+}
