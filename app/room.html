@@ -10,11 +10,12 @@
 </head>
 
 <body>
-    <a-scene physics="debug: true; gravity:.00001">
+    <a-scene physics="debug: true; gravity:-9.81">
         <a-assets>
              <a-asset-item id="wall" src="models/wall.dae"></a-asset-item>
              <a-asset-item id="laptop" src="models/laptop.obj"></a-asset-item>            
              <a-asset-item id="table" src="models/table.obj"></a-asset-item>            
+             <a-asset-item id="support" src="models/table-support.obj"></a-asset-item>            
              <a-asset-item id="chair" src="models/chair.obj"></a-asset-item>            
              <a-asset-item id="books" src="models/books.obj"></a-asset-item>            
              <a-asset-item id="tv" src="models/tv.obj"></a-asset-item>            
@@ -23,19 +24,31 @@
              <a-asset-item id="table-small" src="models/table-small.obj"></a-asset-item>          
              <a-asset-item id="box" src="models/box.obj"></a-asset-item>            
              <a-asset-item id="bin" src="models/bin.obj"></a-asset-item>            
+             <a-asset-item id="cup" src="models/cup.obj"></a-asset-item>            
         </a-assets>
 
         <a-light light="color: white; intensity: 1.3; type: directional; castShadow:true;shadowMapHeight:512; shadowMapWidth:512" rotation='0 -12 8' position="-9 3.157 7.573"></a-light>
-        <a-light light="color: white; intensity: .5; type: ambient;" position="-9 7 3"></a-light>
-    <a-entity camera="userHeight: 1.6" look-controls wasd-controls>
+        <a-light light="color: white; intensity: .2; type: directional; castShadow:false;shadowMapHeight:512; shadowMapWidth:512" rotation='0 -12 8' position="2.7 6.3 7.9"></a-light>
+        <a-light light="color: white; intensity: .51; type: ambient;" position="-9 7 3"></a-light>
+    <a-entity position='3.12 0 0' camera="userHeight: 1.6" look-controls wasd-controls>
         </a-entity>
     <a-entity obj-model="obj: #laptop" shadow="cast: true"></a-entity>` 
     <a-entity obj-model="obj: #chair" scale='.5 .5 .5' material='color:#4C78FF;' position='1.37 0.681 2.854' rotation='0 -149 0' shadow="cast: true"></a-entity>` 
+    <a-entity obj-model="obj: #chair" scale='.5 .5 .5' material='color:#4C78FF;' position='-1.37 0.681 2.854' rotation='0 -189 0' shadow="cast: true"></a-entity>` 
     <a-entity obj-model="obj: #chair" scale='.5 .5 .5' dynamic-body='shape: box;' id='chair' position='2.53 .68 -.72' rotation='0 -23 0' material='color:#FFD412' shadow="cast: true" ></a-entity>
     
     
-    <a-entity obj-model="obj: #table"shadow="cast: true; receive: true" material="color: #43E4B6"></a-entity>
+    <a-box static-body='shape: box;' material="color:#43E4B6; roughness: 1" shadow="cast: true; receive:true" depth="4" height=".05" width="2.6" position='0 1.207 0'></a-box>
+    <a-entity obj-model="obj: #support" position='0.15 0 -1.8' shadow="cast: true" rotation='0 3 0'></a-entity>
+    <a-entity obj-model="obj: #support" position='0 0 1.6' rotation='0 -8 0' shadow="cast: true"></a-entity>
+    
     <a-entity obj-model="obj: #books" shadow="cast: true"></a-entity>
+    <a-entity dynamic-body='shape: box;' position='0 1.2 -.507' scale='.001 .001 .001' id='cup' material='color: red;' shadow='cast: true;'obj-model="obj: #cup"></a-entity>
+
+    <a-box static-body='shape: box;' rotation='0 -8 0' material="color:pink; roughness: 1" shadow="cast: true; receive:true" depth="4" height=".05" width="2.6" position='-1 1.207 6.5'></a-box>
+    <a-entity obj-model="obj: #support" position='-1 0 7.6' shadow="cast: true" rotation='0 3 0'></a-entity>
+    <a-entity obj-model="obj: #support" position='-.8 0 5' rotation='0 -8 0' shadow="cast: true"></a-entity>
+    
     <a-entity obj-model="obj: #tv" shadow="cast: true" material="color: pink" position='-9.8 0 -.5' rotation='0 6.4 0'></a-entity>
     
     <a-entity obj-model="obj: #table-small" shadow="cast: true" material="color: red" scale='.8 .8 .8' position='4 0 -7.7' rotation='0 6.4 0'></a-entity>
@@ -52,7 +65,7 @@
     <a-entity id='walls' shadow='cast: true; receive:true'obj-model="obj: #room"></a-entity>
 
     <a-plane static-body material='roughness: 1; metalness: 0; color: cornflowerblue' shadow="receive: true" position="0 0 0" rotation="-90 0 0" width="35" height="35"></a-plane>
-    <a-plane id='roof' static-body material='roughness: 1; metalness: 0; color: pink' shadow="receive: true" position="0 8 0" rotation="-90 0 0" width="35" height="35"></a-plane>
+    <a-plane id='roof' static-body material='shader: flat; metalness: 0; color: rgb(220,220,220)' shadow="receive: true" position="0 8 0" rotation="90 0 0" width="35" height="35"></a-plane>
 
 <!--<a-entity position='0 2 0' scale='5 5 5' text="value: Shake things up.;"></a-entity>-->
 
