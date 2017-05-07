@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Viewfinder Test</title>
+    <script src="https://rawgit.com/aframevr/aframe/e7f78bd/dist/aframe-master.min.js"></script>
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v1.4.0/dist/aframe-physics-system.min.js"></script>
+</head>
+
+<body>
+    <a-scene antialias="false" physics="debug: true; gravity:-9.81">
+        <a-assets>
+            <a-asset-item id="bake" src="/models/texture-export.gltf"></a-asset-item>
+            <a-asset-item id="bake-obj" src="/models/texture-export.obj"></a-asset-item>
+            <a-asset-item id="bake-mtl" src="/models/texture-export.mtl"></a-asset-item>
+        </a-assets>
+
+        <a-light light="color: #fff; intensity: 1; type: directional; castShadow:true;shadowMapHeight:512; shadowMapWidth:512" rotation='0 -12 8'
+            position="-9 3.157 7.573"></a-light>
+        <a-light light="color: #fff; intensity: .51; type: ambient;" position="-9 7 3"></a-light>
+
+        <a-entity position='-1.2 0 4.4' camera="userHeight: 1.6" look-controls wasd-controls>
+        </a-entity>
+        <a-sky color="#eee"></a-sky>
+        <!--<a-entity scale='1 1 1' gltf-model="#bake"></a-entity>`-->
+        <a-entity obj-model="obj: #bake-obj;" material='texture:'></a-entity>`
+    
+    </a-scene>
+</body>
+
+</html>
