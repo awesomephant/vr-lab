@@ -10,23 +10,23 @@
 </head>
 
 <body>
+    <script src="./js/lunar.js"></script>
     <a-scene antialias="false" physics="debug: true; gravity:-9.81">
         <a-assets>
             <img id="earth" src="earth.jpg">
-            <a-asset-item id="lander" src="models/lunar/lander.obj"></a-asset-item>
+            <a-asset-item id="lander" src="models/lunar/lander-2.obj"></a-asset-item>
             <a-asset-item id="console-front" src="models/lunar/console-front.obj"></a-asset-item>
         </a-assets>        
             <a-light light="color: #fff; intensity: 1.3; type: directional; castShadow:true;shadowMapHeight:2048; shadowMapWidth:2048" rotation='0 -12 8' position="-16 7 -12"></a-light>
           <a-light light="color: white; intensity: .1; type: ambient;" position="-9 7 3"></a-light>
  
- <a-entity position="0 15 10" material='src: #earth; roughness: 1' geometry="mergeTo:null;primitive:sphere;radius:9"></a-entity>
+        <a-plane static-body position="0 -25 0" rotation='-90 0 0' width='50' height='50' material='color: pink; roughness: 1'></a-plane>
  
-        <a-entity obj-model="obj: #lander" shadow="cast: true">
-            <a-entity obj-model="obj: #console-front"></a-entity>
-            <a-entity position='0.763 0 2.7' rotation='20 180 0' camera="userHeight: 1.6" look-controls wasd-controls></a-entity>
+            <a-entity position='0.031 -.1 0.257' rotation='10 362 0' camera="userHeight: 1.6" look-controls wasd-controls></a-entity>
+        <a-entity log='hi' id='lander-instance' dynamic-body='shape: box;' obj-model="obj: #lander" shadow="cast: true">
         </a-entity>
 
-<a-sky color="#000"></a-sky>
+<a-sky color="#bbb"></a-sky>
         <!--<a-entity position='0 2 0' scale='5 5 5' text="value: Shake things up.;"></a-entity>-->
 
     </a-scene>
