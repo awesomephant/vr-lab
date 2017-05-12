@@ -1,4 +1,4 @@
-AFRAME.registerComponent("change-color-on-hover", {
+AFRAME.registerComponent("handle-events", {
     schema: {
         target: { type: "selector" },
         position: { type: "string" }
