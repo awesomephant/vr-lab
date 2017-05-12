@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Keyboard</title>
+    <script src="https://rawgit.com/aframevr/aframe/e7f78bd/dist/aframe-master.min.js"></script>
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v1.4.0/dist/aframe-physics-system.min.js"></script>
+    <script src="/js/keyboard-controller.js"></script>
+</head>
+
+<body>
+    <a-scene antialias="false" physics="false">
+        <a-assets>
+        </a-assets>
+
+        <a-light light="color: #fff; intensity: 1; type: directional; castShadow:true;shadowMapHeight:512; shadowMapWidth:512" rotation='0 -12 8'
+            position="-9 3.157 7.573"></a-light>
+        <a-light light="color: #fff; intensity: .51; type: ambient;" position="-9 7 3"></a-light>
+
+        <a-entity position='4.5 0 4.4' camera="userHeight: 1.6" look-controls wasd-controls>
+          <a-entity cursor="fuse: true; fuseTimeout: 300"
+            position="0 0 -.1"
+            geometry="primitive: ring; radiusInner: 0.001; radiusOuter: 0.0014"
+            material="color: black; shader: flat">
+            <a-animation begin="click" easing="ease-in" attribute="scale"
+               fill="backwards" from="0.2 0.2 0.2" to="1 1 1"></a-animation>
+  <a-animation begin="cursor-fusing" easing="ease-in" attribute="scale"
+               fill="forwards" from="1 1 1" to="0.2 0.2 0.2"></a-animation>
+            </a-entity>
+        </a-entity>
+        <a-sky color="#97D0D6"></a-sky>
+        <!--<a-entity position='0 2 0' scale='5 5 5' text="value: Shake things up.;"></a-entity>-->
+
+        <a-box data-letter='q' id='button-q' change-color-on-hover="position: 1 0.724 1" material='color:#396CFF; roughness: 1' position='1 1 1' depth=".9" height=".9" width=".9"></a-box>
+        <a-box data-letter='w' id='button-w' change-color-on-hover="position: 1 0.724 1" material='color:#396CFF; roughness: 1' position='2 1 1' depth=".9" height=".9" width=".9"></a-box>
+        <a-box data-letter='e' id='button-e' change-color-on-hover="position: 1 0.724 1" material='color:#396CFF; roughness: 1' position='3 1 1' depth=".9" height=".9" width=".9"></a-box>
+        <a-box data-letter='r' id='button-r' change-color-on-hover="position: 1 0.724 1" material='color:#396CFF; roughness: 1' position='4 1 1' depth=".9" height=".9" width=".9"></a-box>
+        <a-box data-letter='t' id='button-t' change-color-on-hover="position: 1 0.724 1" material='color:#396CFF; roughness: 1' position='5 1 1' depth=".9" height=".9" width=".9"></a-box>
+        <a-box data-letter='y' id='button-y' change-color-on-hover="position: 1 0.724 1" material='color:#396CFF; roughness: 1' position='6 1 1' depth=".9" height=".9" width=".9"></a-box>
+        <a-box data-letter='u' id='button-u' change-color-on-hover="position: 1 0.724 1" material='color:#396CFF; roughness: 1' position='7 1 1' depth=".9" height=".9" width=".9"></a-box>
+        <a-box data-letter='i' id='button-i' change-color-on-hover="position: 1 0.724 1" material='color:#396CFF; roughness: 1' position='8 1 1' depth=".9" height=".9" width=".9"></a-box>
+
+        <a-entity id='text' position='4.216 6.098 -5.1' scale='140 140 140' text="align: center; value: "></a-entity>
+    </a-scene>
+</body>
+
+</html>
