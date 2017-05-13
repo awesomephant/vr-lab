@@ -8,6 +8,7 @@ AFRAME.registerComponent('handle-button', {
             el.setAttribute('color', '#EF2D5E');  
           });
           el.addEventListener('click', function () {
+              window.location.href = 'http://www.google.com';  
             el.setAttribute('scale', {x: 2, y: 1, z: 2});
           });
         } 

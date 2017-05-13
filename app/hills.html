@@ -11,6 +11,7 @@
 <body>
     <a-scene antialias="false" fog='type: exponential; color: #396CFF; density: 0.1' physics="debug: true; gravity:-9.81">
         <a-assets>
+                    <a-asset-item id="lander" src="models/lunar/lander-2.obj"></a-asset-item>
              <a-asset-item id="_hills" src="models/mountain/mountain.obj"></a-asset-item>
         </a-assets>
 
@@ -20,6 +21,10 @@
     <a-entity position='-15 -3.6 2.4' rotation='0 -88 0' camera="userHeight: 1.6" look-controls>
         <a-animation easing='linear' attribute='position' to='15 0 0' dur='200000'></a-animation>
     </a-entity>
+        <a-entity id='lander-instance'position='-15 -3.3 2.4' material='color: #111;' scale='.9 .9 .9' rotation='0 -88 0' obj-model="obj: #lander" shadow="cast: true">
+        <a-animation easing='linear' attribute='position' to='15 0 0' dur='200000'></a-animation>
+
+        </a-entity>
             <a-entity id='hills' scale='4 4 4' material='color: #6C3CFF; roughness: .2; shader:standard; wireframe: false;' obj-model="obj: #_hills" shadow="cast: true; receive: true">
         </a-entity>
       <a-sky color="#FFB2B6"></a-sky>
