@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <a-scene antialias="false" fog='type: exponential; color: #FFC2BE; density: 0.02' physics="debug: true; gravity:-9.81">
+    <a-scene antialias="false" fog='type: exponential; color: #FFC2BE; density: 0.05' physics="debug: true; gravity:-9.81">
         <a-assets>
             <a-asset-item id="lander" src="models/lunar/lander-2.obj"></a-asset-item>
             <a-asset-item id="_hills" src="models/mountain/mountain.obj"></a-asset-item>
@@ -46,7 +46,7 @@
         <a-entity hover position='-5.7 -1.9 5' scale='1.8 1.2 1.8' obj-model="obj: #rock-5"></a-entity>
         <a-entity id='hills' scale='4 4 4' material='color: #43A4F8; roughness: 1; shader:standard;' obj-model="obj: #_hills" shadow="cast: true; receive: true">
         </a-entity>
-        <a-sky color="#FFB2B6"></a-sky>
+        <a-sky material="fog: false" color="#FFB2B6"></a-sky>
         <!--<a-entity position='0 2 0' scale='5 5 5' text="value: Shake things up.;"></a-entity>-->
 
     </a-scene>
