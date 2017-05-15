@@ -2,7 +2,7 @@ AFRAME.registerComponent("lightswitch", {
     schema: {
     },
     init: function () {
-        var duration = 10000;
+        var duration = 15000;
         var data = this.data;
         var el = this.el;  // <a-box>
         var sunEl = document.querySelector('#sun');
@@ -12,6 +12,8 @@ AFRAME.registerComponent("lightswitch", {
         var ambientAnimation = document.createElement("a-animation");
         var skyEl = document.querySelector('#sky')
         var skyAnimation = document.createElement("a-animation");
+        var laptopLight = document.querySelector('#laptop-light')
+        var laptopLightAnimation = document.createElement("a-animation");
         
         sunAnimation.setAttribute('attribute', 'position');
         sunAnimation.setAttribute('to', '-9 3.157 7.573');
@@ -26,6 +28,12 @@ AFRAME.registerComponent("lightswitch", {
         ambientAnimation.setAttribute('direction', 'forwards')
         ambientAnimation.setAttribute('to', '.002')
         ambientAnimation.setAttribute('dur', duration)
+
+        laptopLightAnimation.setAttribute('attribute', 'light.intensity')
+        laptopLightAnimation.setAttribute('direction', 'forwards')
+        laptopLightAnimation.setAttribute('from', '0')
+        laptopLightAnimation.setAttribute('to', '0.4')
+        laptopLightAnimation.setAttribute('dur', duration)
 
         skyAnimation.setAttribute('attribute', 'color')
         skyAnimation.setAttribute('direction', 'both')
@@ -43,8 +51,8 @@ AFRAME.registerComponent("lightswitch", {
               sunEl.appendChild(sunAnimation);
               sunEl.appendChild(sunAnimationColor);
               ambientEl.appendChild(ambientAnimation);
-              console.log(skyEl)
               skyEl.appendChild(skyAnimation);
+              laptopLight.appendChild(laptopLightAnimation);
         });
     }
 });

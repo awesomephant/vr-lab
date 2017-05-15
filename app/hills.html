@@ -4,31 +4,50 @@
 <head>
     <meta charset="utf-8">
     <title>Hills</title>
-<script src="https://rawgit.com/aframevr/aframe/e7f78bd/dist/aframe-master.min.js"></script>
-<script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v1.4.0/dist/aframe-physics-system.min.js"></script>
+    <script src="https://rawgit.com/aframevr/aframe/e7f78bd/dist/aframe-master.min.js"></script>
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v1.4.0/dist/aframe-physics-system.min.js"></script>
+     <script src="./js/link-component.js"></script>
+     <script src="./js/hover-component.js"></script>
 </head>
 
 <body>
-    <a-scene antialias="false" fog='type: exponential; color: #396CFF; density: 0.1' physics="debug: true; gravity:-9.81">
+    <a-scene antialias="false" fog='type: exponential; color: #FFC2BE; density: 0.02' physics="debug: true; gravity:-9.81">
         <a-assets>
-                    <a-asset-item id="lander" src="models/lunar/lander-2.obj"></a-asset-item>
-             <a-asset-item id="_hills" src="models/mountain/mountain.obj"></a-asset-item>
+            <a-asset-item id="lander" src="models/lunar/lander-2.obj"></a-asset-item>
+            <a-asset-item id="_hills" src="models/mountain/mountain.obj"></a-asset-item>
+            <a-asset-item id="rock-1" src="models/mountain/rock-1.obj"></a-asset-item>
+            <a-asset-item id="rock-2" src="models/mountain/rock-2.obj"></a-asset-item>
+            <a-asset-item id="rock-3" src="models/mountain/rock-3.obj"></a-asset-item>
+            <a-asset-item id="rock-4" src="models/mountain/rock-4.obj"></a-asset-item>
+            <a-asset-item id="rock-5" src="models/mountain/rock-5.obj"></a-asset-item>
+            <a-asset-item id="rock-6" src="models/mountain/rock-6.obj"></a-asset-item>
+            <a-asset-item id="rock-7" src="models/mountain/rock-7.obj"></a-asset-item>
         </a-assets>
 
-        <a-light light="color: #fff; intensity: 1; type: directional; castShadow:true;shadowMapHeight:512; shadowMapWidth:512" rotation='0 -12 8' position="-9 3.157 7.573"></a-light>
-        <a-light light="color: #fff; intensity: .51; type: ambient;" position="-9 7 3"></a-light>
+        <a-light light="color: #FFE490; intensity: 1; type: directional; castShadow:true;shadowMapHeight:512; shadowMapWidth:512"
+            rotation='0 -12 8' position="-12 8 -23"></a-light>
+        <a-light light="color: #5B1CFF; intensity: .41; type: directional;" rotation='0 -12 8' position="-12 11 25"></a-light>
+        <a-light light="color: #fff; intensity: .31; type: ambient;" position="-9 7 3"></a-light>
 
-    <a-entity position='-15 -3.6 2.4' rotation='0 -88 0' camera="userHeight: 1.6" look-controls>
-        <a-animation easing='linear' attribute='position' to='15 0 0' dur='200000'></a-animation>
-    </a-entity>
-        <a-entity id='lander-instance'position='-15 -3.3 2.4' material='color: #111;' scale='.9 .9 .9' rotation='0 -88 0' obj-model="obj: #lander" shadow="cast: true">
-        <a-animation easing='linear' attribute='position' to='15 0 0' dur='200000'></a-animation>
-
+        <a-entity position='-15 -3.6 2.4' rotation='0 -88 0' camera="userHeight: 1.6" wasd-controls look-controls>
+            <a-cursor></a-cursor>
         </a-entity>
-            <a-entity id='hills' scale='4 4 4' material='color: #6C3CFF; roughness: .2; shader:standard; wireframe: false;' obj-model="obj: #_hills" shadow="cast: true; receive: true">
+        
+        <a-entity hover position='-2.2 1.4 0.8' scale='3.2 3.1 2.9' obj-model="obj: #rock-1"></a-entity>
+        <a-entity hover position='-11 2.6 14' scale='3 3 3' obj-model="obj: #rock-2"></a-entity>
+        <a-entity hover position='-6.4 -.5 4.4' scale='2 1.7 1.5' obj-model="obj: #rock-3"></a-entity>
+        <a-entity hover position='-5.6 -1.95 -4.4' scale='3.6 3.8 3.5' rotation='0 90 0' obj-model="obj: #rock-4"></a-entity>
+        <a-entity hover position='-9 -1.1 5.5' scale='1.8 2.5 1.8' obj-model="obj: #rock-5"></a-entity>
+        <a-entity hover position='-9.4 .97 2.7' scale='3.4 2.8 3.4' obj-model="obj: #rock-6"></a-entity>
+        <a-entity hover position='-8 1.6 3' scale='1.4 1.2 1.8' obj-model="obj: #rock-7"></a-entity>
+        <a-entity hover position='1.8 2.8 4' scale='1.8 1.2 1.8' obj-model="obj: #rock-1"></a-entity>
+        <a-entity hover position='-10 .8 0' scale='1.8 1.7 1.8' obj-model="obj: #rock-2"></a-entity>
+        <a-entity hover position='-3 1 0' scale='8 10 7.7' obj-model="obj: #rock-3"></a-entity>
+        <a-entity hover position='-5.7 -1.9 5' scale='1.8 1.2 1.8' obj-model="obj: #rock-5"></a-entity>
+        <a-entity id='hills' scale='4 4 4' material='color: #43A4F8; roughness: 1; shader:standard;' obj-model="obj: #_hills" shadow="cast: true; receive: true">
         </a-entity>
-      <a-sky color="#FFB2B6"></a-sky>
-<!--<a-entity position='0 2 0' scale='5 5 5' text="value: Shake things up.;"></a-entity>-->
+        <a-sky color="#FFB2B6"></a-sky>
+        <!--<a-entity position='0 2 0' scale='5 5 5' text="value: Shake things up.;"></a-entity>-->
 
     </a-scene>
 </body>

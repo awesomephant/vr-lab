@@ -1,4 +1,5 @@
 /models
+/ref
 *.xcf
 node_modules
 *.blend
