@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Noir</title>
+    <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+    <script src="./js/button-controller.js"></script>
+</head>
+
+<body>
+    <a-scene antialias="false" physics="false">
+        <a-assets>
+        </a-assets>
+
+        <a-light light="color: #fff; intensity: 1; type: directional; castShadow:true;shadowMapHeight:512; shadowMapWidth:512" rotation='0 -12 8'
+            position="-9 3.157 7.573"></a-light>
+        <a-light light="color: #fff; intensity: .51; type: ambient;" position="-9 7 3"></a-light>
+
+        <a-camera position='-1.2 0 4.4' look-controls wasd-controls>
+          <a-cursor></a-cursor>
+        </a-camera>
+        <a-sky color="#97D0D6"></a-sky>
+        <!--<a-entity position='0 2 0' scale='5 5 5' text="value: Shake things up.;"></a-entity>-->
+
+        <a-box id='button-base' material='color:#00CB6F; roughness: 1' position='1 .7 1' width='1.4' depth="1.4" height=".7" width="1"></a-box>
+        <a-box id='button-button' handle-button material='color:#396CFF; roughness: 1' position='1 1 1' depth="1" height="1" width="1"></a-box>
+
+    </a-scene>
+</body>
+
+</html>
