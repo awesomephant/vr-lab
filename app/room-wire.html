@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Hello, World! - A-Frame</title>
+    <meta name="description" content="Hello, World! - A-Frame">
+    <script src="https://rawgit.com/aframevr/aframe/e7f78bd/dist/aframe-master.min.js"></script>
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v1.4.0/dist/aframe-physics-system.min.js"></script>
+</head>
+
+<body>
+    <a-scene antialias="false" physics="debug: false; gravity:.001">
+        <a-assets>
+            <a-asset-item id="wall" src="models/wall.dae"></a-asset-item>
+            <a-asset-item id="laptop" src="models/laptop.obj"></a-asset-item>
+            <a-asset-item id="table" src="models/table.obj"></a-asset-item>
+            <a-asset-item id="support" src="models/table-support.obj"></a-asset-item>
+            <a-asset-item id="chair" src="models/chair.obj"></a-asset-item>
+            <a-asset-item id="books" src="models/books.obj"></a-asset-item>
+            <a-asset-item id="tv" src="models/tv.obj"></a-asset-item>
+            <a-asset-item id="room" src="models/room.obj"></a-asset-item>
+            <a-asset-item id="lamp" src="models/lamp.obj"></a-asset-item>
+            <a-asset-item id="table-small" src="models/table-small.obj"></a-asset-item>
+            <a-asset-item id="box" src="models/box.obj"></a-asset-item>
+            <a-asset-item id="bin" src="models/bin.obj"></a-asset-item>
+            <a-asset-item id="cup" src="models/cup.obj"></a-asset-item>
+            <a-asset-item id="lightswitch" src="models/lightswitch.obj"></a-asset-item>
+            <img id="escape-text" src="models/escape-text.png">
+
+        </a-assets>
+
+        <a-light light="color: white; intensity: 1; type: ambient;" position="-9 7 3"></a-light>
+        <a-image position='-2 3 0' rotation='0 90 0' width='10' height='1.685' src="#escape-text">
+            <a-animation attribute='material.opacity' easing='linear' fill='both' from='0' to='1' dur='2500' delay='4000'></a-animation>
+        </a-image>
+        <a-entity position='3.12 0 0' camera="userHeight: 1.6" look-controls wasd-controls>
+            <a-light light='color: #FFE2C0; intensity: 1; type: spot; castShadow: true; shadowMapHeight:512; shadowMapWidth:512; angle: 20; distance: 16; penumbra: .73'
+                position='.7 .2 .2'></a-light>
+        </a-entity>
+        <a-entity dynamic-body='shape: box;' material='wireframe: true' obj-model="obj: #laptop" shadow="cast: true"></a-entity>`
+        <a-entity dynamic-body='shape: box;' scale='1 1.467 1' position="-0.007 1.428 0.927" rotation="18.392 36.096 14.668" geometry="mergeTo:null;primitive:plane;height:0.14;width:0.14"
+            material='wireframe: true'></a-entity>
+        <a-entity position="0.011 1.438 .985" rotation="" light="angle:6.92;distance: 0.960;decay:0.780;intensity:0.48;penumbra:0.78;type:point;target:null"></a-entity>
+
+        <a-entity id='chair-1' obj-model="obj: #chair" scale='.5 .5 .5' dynamic-body='shape: box;' position='2.53 .68 -.72' rotation='0 -23 0'
+            material='wireframe: true' shadow="cast: true"></a-entity>
+        <a-entity dynamic-body='shape: box;' id='chair-2' obj-model="obj: #chair" scale='.5 .5 .5' material='wireframe: true' position='1.37 0.681 2.854'
+            rotation='0 -149 0' shadow="cast: true"></a-entity>`
+        <a-entity dynamic-body='shape: box;' id='chair-3' obj-model="obj: #chair" scale='.5 .5 .5' material='wireframe: true' position='-1.37 0.681 2.854'
+            rotation='0 -189 0' shadow="cast: true"></a-entity>`
+        <a-entity dynamic-body='shape: box;' id='chair-4' obj-model="obj: #chair" scale='.5 .5 .5' material='wireframe: true' position='0.516 0.681 6.588'
+            rotation='0 -82 0' shadow="cast: true"></a-entity>`
+        <a-entity dynamic-body='shape: box;' id='chair-5' obj-model="obj: #chair" scale='.5 .5 .5' material='wireframe: true' position='-0.314 0.681 2.854'
+            rotation='0 -165 0' shadow="cast: true"></a-entity>`
+        <a-entity dynamic-body='shape: box;' id='chair-6' obj-model="obj: #chair" scale='.5 .5 .5' material='wireframe: true' position='2.424 0.681 7.167'
+            rotation='0 78 0' shadow="cast: true"></a-entity>`
+        <a-entity dynamic-body='shape: box;' id='chair-7' obj-model="obj: #chair" scale='.5 .5 .5' material='wireframe: true' position='2.051 0.681 -7.582'
+            rotation='0 73 0' shadow="cast: true"></a-entity>`
+        <a-entity dynamic-body='shape: box;' id='chair-8' obj-model="obj: #chair" scale='.5 .5 .5' material='wireframe: true' position='6.243 0.681 6.817'
+            rotation='0 -115 0' shadow="cast: true"></a-entity>`
+
+
+        <!--Table 1-->
+        <a-box id='table-1' dynamic-body='shape: box;' material='wireframe: true' shadow="cast: true; receive:true" depth="4" height=".05"
+            width="2.6" position='0 1.207 0'></a-box>
+        <a-entity dynamic-body='shape: box;' obj-model="obj: #support" position='0.15 0 -1.8' material='wireframe: true' shadow="cast: true"
+            rotation='0 3 0'></a-entity>
+        <a-entity dynamic-body='shape: box;' obj-model="obj: #support" material='wireframe: true' position='0 0 1.6' rotation='0 -8 0'
+            shadow="cast: true"></a-entity>
+
+        <!--Table 2-->
+        <a-box id='table-2' dynamic-body='shape: box;' rotation='0 -8 0' material='wireframe: true' shadow="cast: true; receive:true"
+            depth="4" height=".05" width="2.6" position='-1 1.207 6.5'></a-box>
+        <a-entity dynamic-body='shape: box;' material='wireframe: true' obj-model="obj: #support" position='-1 0 7.6' shadow="cast: true"
+            rotation='0 3 0'></a-entity>
+        <a-entity dynamic-body='shape: box;' obj-model="obj: #support" material='wireframe: true' position='-.8 0 5' rotation='0 -8 0'
+            shadow="cast: true"></a-entity>
+
+        <!--Table 3-->
+        <a-box id='table-3' dynamic-body='shape: box;' rotation='0 2.5 0' material='wireframe: true' shadow="cast: true; receive:true"
+            depth="4" height=".05" width="2.6" position='4.401 1.207 6.5'></a-box>
+        <a-entity dynamic-body='shape: box;' obj-model="obj: #support" position='4.569 0 7.6' shadow="cast: true" material='wireframe: true'
+            rotation='0 -1 0'></a-entity>
+        <a-entity dynamic-body='shape: box;' material='wireframe: true' obj-model="obj: #support" position='4.660 0 5.317' rotation='0 -2.3 0'
+            shadow="cast: true"></a-entity>
+
+        <!--Table 4-->
+        <a-box id='table-4' dynamic-body='shape: box;' rotation='0 5 0' material='wireframe: true' shadow="cast: true; receive:true"
+            depth="4" height=".05" width="2.6" position='6.220 1.207 0.769'></a-box>
+        <a-entity dynamic-body='shape: box;' obj-model="obj: #support" position='6.344 0 2.161' shadow="cast: true" material='wireframe: true'
+            rotation='0 -.5 0'></a-entity>
+        <a-entity dynamic-body='shape: box;' obj-model="obj: #support" material='wireframe: true' position='6.0738 0 -.65' rotation='0 5 0'
+            shadow="cast: true"></a-entity>
+
+        <a-entity dynamic-body='shape: box;' obj-model="obj: #books" material='wireframe: true' shadow="cast: true"></a-entity>
+        <a-entity dynamic-body='shape: box;' position='0 1.2 -.507' scale='.001 .001 .001' id='cup' material='wireframe: true' shadow='cast: true;'
+            obj-model="obj: #cup"></a-entity>
+
+        <a-entity id='lightswitch' obj-model="obj: #lightswitch" material='wireframe: true' position='4.186 1.8 11.974' rotation='0 180 0'
+            scale='.15 .15 .15' shadow="cast: true"></a-entity>
+
+        <a-entity dynamic-body='shape: box;' obj-model="obj: #tv" shadow="cast: true" material='wireframe: true' position='-9.8 0 -.5'
+            rotation='0 6.4 0'></a-entity>
+
+        <a-entity dynamic-body='shape: box;' obj-model="obj: #table-small" shadow="cast: true" material='wireframe: true' scale='.8 .8 .8'
+            position='4 0 -7.7' rotation='0 6.4 0'></a-entity>
+        <a-entity dynamic-body='shape: box;' id='box' obj-model="obj: #box" scale='.8 .8 .8' material='wireframe: true' position='4.746 1.152 -7.741'
+            rotation='0 71 0' shadow="cast: true"></a-entity>`
+
+        <a-entity dynamic-body='shape: box;' id='bin' obj-model="obj: #bin" shadow="cast: true" material='wireframe: true' scale='.8 .8 .8'
+            position='8.6 0 -1.91' rotation='0 -91 0'></a-entity>
+
+        <a-entity obj-model="obj: #lamp" material='wireframe: true' shadow='cast: true' scale='1 1 1' rotation='0 90 0' position='0 6 -6'></a-entity>
+        <a-entity obj-model="obj: #lamp" material='wireframe: true' shadow='cast: true' scale='1 1 1' rotation='0 90 0' position='0 6 0'></a-entity>
+        <a-entity obj-model="obj: #lamp" material='wireframe: true' shadow='cast: true' scale='1 1 1' rotation='0 90 0' position='0 6 6'></a-entity>
+        <a-entity obj-model="obj: #lamp" material='wireframe: true' shadow='cast: true' scale='1 1 1' rotation='0 90 0' position='6 6 -6'></a-entity>
+        <a-entity obj-model="obj: #lamp" material='wireframe: true' shadow='cast: true' scale='1 1 1' rotation='0 90 0' position='6 6 0'></a-entity>
+        <a-entity obj-model="obj: #lamp" material='wireframe: true' shadow='cast: true' scale='1 1 1' rotation='0 90 0' position='6 6 6'></a-entity>
+
+        <a-entity id='walls' material='wireframe: true' shadow='cast: true; receive:true' obj-model="obj: #room"></a-entity>
+
+        <a-plane static-body material='wireframe: true' shadow="receive: true" position="0 -.5 0" rotation="-90 0 0" width="35" height="35"></a-plane>
+
+        <a-plane id='roof' static-body material='wireframe: true' shadow="receive: true" position="1.861 7.607 1.669" rotation="90 0 0"
+            width="17.240" height="24.780"></a-plane>
+
+        <!--<a-entity position='0 2 0' scale='5 5 5' text="value: Shake things up.;"></a-entity>-->
+
+        <a-sky color="#020202"></a-sky>
+
+
+
+    </a-scene>
+</body>
+
+</html>

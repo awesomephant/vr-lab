@@ -26,6 +26,7 @@
             <a-asset-item id="rock-6" src="models/mountain/rock-6.obj"></a-asset-item>
             <a-asset-item id="rock-7" src="models/mountain/rock-7.obj"></a-asset-item>
             <a-asset-item id="_ship" src="models/mountain/spaceship.obj"></a-asset-item>
+            <a-asset-item id="_ship-screen" src="models/mountain/spaceship-screen.obj"></a-asset-item>
         </a-assets>
 
         <a-light light="color: #FFE490; intensity: 1; type: directional; castShadow:true;shadowMapHeight:512; shadowMapWidth:512"
@@ -67,6 +68,7 @@
             </a-entity>
             <a-plane width='.1' height='.1' position='-0.075 0.619 0.776' rotation='0 180 0'link='target: index.html'></a-plane>
             <a-entity scale='1 1 1' material='color: #e2e2e2; roughness: 1; shader:standard;' obj-model="obj: #_ship" shadow="cast: true; receive: true">></a-entity>
+            <a-entity scale='0.036 0.036 0.036' position='0 0.154 -1.013' material='color: #e2e2e2; roughness: 1; shader:standard;' obj-model="obj: #_ship-screen" shadow="cast: true; receive: true">></a-entity>
         </a-entity>
 
         <a-entity enemy-controller id='enemy-ship' scale='1 1 1' material='color: red; roughness: 1; shader:standard;' obj-model="obj: #_ship"></a-entity>
