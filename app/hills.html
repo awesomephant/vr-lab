@@ -5,13 +5,15 @@
     <meta charset="utf-8">
     <title>Hills</title>
     <script src="https://rawgit.com/aframevr/aframe/e7f78bd/dist/aframe-master.min.js"></script>
-    <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v1.4.0/dist/aframe-physics-system.min.js"></script>
-     <script src="./js/link-component.js"></script>
-     <script src="./js/hover-component.js"></script>
+    <script src="./js/link-component.js"></script>
+    <script src="./js/hover-component.js"></script>
+    <script src="./js/enemy-ship-controller.js"></script>
+    <script src="https://rawgit.com/protyze/aframe-curve-component/master/dist/aframe-curve-component.min.js"></script>
+    <script src="https://rawgit.com/protyze/aframe-alongpath-component/master/dist/aframe-alongpath-component.min.js"></script>
 </head>
 
 <body>
-    <a-scene antialias="false" fog='type: exponential; color: #FFC2BE; density: 0.05' physics="debug: true; gravity:-9.81">
+    <a-scene antialias="false" fog='type: exponential; color: #FFC2BE; density: 0.05'>
         <a-assets>
             <a-asset-item id="lander" src="models/lunar/lander-2.obj"></a-asset-item>
             <a-asset-item id="_hills" src="models/mountain/mountain.obj"></a-asset-item>
@@ -22,6 +24,7 @@
             <a-asset-item id="rock-5" src="models/mountain/rock-5.obj"></a-asset-item>
             <a-asset-item id="rock-6" src="models/mountain/rock-6.obj"></a-asset-item>
             <a-asset-item id="rock-7" src="models/mountain/rock-7.obj"></a-asset-item>
+            <a-asset-item id="_ship" src="models/mountain/spaceship.obj"></a-asset-item>
         </a-assets>
 
         <a-light light="color: #FFE490; intensity: 1; type: directional; castShadow:true;shadowMapHeight:512; shadowMapWidth:512"
@@ -29,10 +32,6 @@
         <a-light light="color: #5B1CFF; intensity: .41; type: directional;" rotation='0 -12 8' position="-12 11 25"></a-light>
         <a-light light="color: #fff; intensity: .31; type: ambient;" position="-9 7 3"></a-light>
 
-        <a-entity position='-15 -3.6 2.4' rotation='0 -88 0' camera="userHeight: 1.6" wasd-controls look-controls>
-            <a-cursor></a-cursor>
-        </a-entity>
-        
         <a-entity hover position='-2.2 1.4 0.8' scale='3.2 3.1 2.9' obj-model="obj: #rock-1"></a-entity>
         <a-entity hover position='-11 2.6 14' scale='3 3 3' obj-model="obj: #rock-2"></a-entity>
         <a-entity hover position='-6.4 -.5 4.4' scale='2 1.7 1.5' obj-model="obj: #rock-3"></a-entity>
@@ -44,10 +43,31 @@
         <a-entity hover position='-10 .8 0' scale='1.8 1.7 1.8' obj-model="obj: #rock-2"></a-entity>
         <a-entity hover position='-3 1 0' scale='8 10 7.7' obj-model="obj: #rock-3"></a-entity>
         <a-entity hover position='-5.7 -1.9 5' scale='1.8 1.2 1.8' obj-model="obj: #rock-5"></a-entity>
+        <a-entity hover position='-10 4 -2.5' scale='3.3 2.4 2.2' obj-model="obj: #rock-5"></a-entity>
+        <a-entity hover position='-4 3 4.3' scale='3 1.8 1.8' rotation='-22 180 180' obj-model="obj: #rock-5"></a-entity>
         <a-entity id='hills' scale='4 4 4' material='color: #43A4F8; roughness: 1; shader:standard;' obj-model="obj: #_hills" shadow="cast: true; receive: true">
         </a-entity>
         <a-sky material="fog: false" color="#FFB2B6"></a-sky>
-        <!--<a-entity position='0 2 0' scale='5 5 5' text="value: Shake things up.;"></a-entity>-->
+        <a-box material='shader: flat; color: white' depth='.2' width='20' position='-46 15 5' id='ship'>
+            <a-animation delay='5000' easing='linear' attribute='position' dur='8000' to='150 10 5'></a-animation>
+        </a-box>
+        <a-box material='shader: flat; color: white' depth='.2' width='20' position='-46 15 2' id='ship'>
+            <a-animation delay='4500' easing='linear' attribute='position' dur='8000' to='150 10 2'></a-animation>
+        </a-box>
+        <a-curve id="track1">
+            <a-curve-point position="-13 -3.8 3.5"></a-curve-point>
+            <a-curve-point position="-2 -2.7 3.759"></a-curve-point>
+            <a-curve-point position="10 0 1.4"></a-curve-point>
+            <a-curve-point position="16 -1.8 -2.4"></a-curve-point>
+        </a-curve>
+        <a-entity position='-15.7 -3.85 2.4' rotation='0 -88 0' id='ship' alongpath="curve: #track1; dur: 200000; rotate: false">
+            <a-entity position='0.014 0.268 -0.75' rotation='0 0 0' camera="userHeight: 0" look-controls>
+                <a-cursor fuse='true' fuse-timeout='500'></a-cursor>
+            </a-entity>
+            <a-entity scale='1 1 1' material='color: #e2e2e2; roughness: 1; shader:standard;' obj-model="obj: #_ship" shadow="cast: true; receive: true">></a-entity>
+        </a-entity>
+
+        <a-entity enemy-controller id='enemy-ship' scale='1 1 1' material='color: red; roughness: 1; shader:standard;' obj-model="obj: #_ship"></a-entity>
 
     </a-scene>
 </body>

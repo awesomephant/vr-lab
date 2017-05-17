@@ -5,7 +5,9 @@
     <meta charset="utf-8">
     <title>Tube</title>
     <script src="https://rawgit.com/aframevr/aframe/e7f78bd/dist/aframe-master.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.8.1/dist/aframe-extras.min.js"></script>
     <script src="./js/link-component.js"></script>
+    <script src="./js/tube/gamestate.js"></script>
 </head>
 
 <body>
@@ -27,19 +29,23 @@
             <a-light position='.26 2.671 -0.502' light="color: #fff; intensity: .3; type: point;distance: 4.5;decay:0.620;intensity:.500;"></a-light>
             <a-light position='6.82 2.671 -0.502' light="color: #fff; intensity: .3; type: point;distance: 4.5;decay:0.620;intensity:.500;"></a-light>
             <a-entity id='train-walls' material='roughness: 1' obj-model="obj: #tube-train" scale='1 1 1' position='0 0 0' rotation='0 0 0' shadow="cast: true"></a-entity>
-            <a-entity id='train-seats' material='color: #3D57FF' obj-model="obj: #tube-seats" scale='1 1 1' position='0 0 0' rotation='0 0 0'
+            <a-entity id='train-seats' material='' obj-model="obj: #tube-seats" scale='1 1 1' position='0 0 0' rotation='0 0 0'
                 shadow="cast: true"></a-entity>
-            <a-entity id='train-poles' material='color: #3D57FF' obj-model="obj: #tube-poles" scale='1 1 1' position='0 0 0' rotation='0 0 0'
+            <a-entity id='train-poles' material='' obj-model="obj: #tube-poles" scale='1 1 1' position='0 0 0' rotation='0 0 0'
                 shadow="cast: true"></a-entity>
-            <a-entity id='train-polemergers' material='color: #FFDB20' obj-model="obj: #tube-polemergers" scale='1 1 1' position='0 0 0' rotation='0 0 0' shadow="cast: true"></a-entity>
+            <a-entity id='train-polemergers' material='color: white' obj-model="obj: #tube-polemergers" scale='1 1 1' position='0 0 0' rotation='0 0 0' shadow="cast: true"></a-entity>
             <a-entity id='train-lights' material='shader: flat; color: white' position='0 -0.022 0' obj-model="obj: #tube-lights" scale='1 1 1' position='0 0 0' rotation='0 0 0' shadow="cast: true"></a-entity>
-            <a-entity id='train-armrests' material='color: #1F2C82;' obj-model="obj: #tube-armrests" scale='1 1 1' position='0 0 0' rotation='0 0 0' shadow="cast: true"></a-entity>
-
-            <a-camera position='0 0 0' look-controls wasd-controls>
-                <a-cursor></a-cursor>
-            </a-camera>
+            <a-entity id='train-armrests' material='color: #555;' obj-model="obj: #tube-armrests" scale='1 1 1' position='0 0 0' rotation='0 0 0' shadow="cast: true"></a-entity>
+            <a-plane position='-9.364 0.783 1.068' rotation='0 171.601 0' scale='0.460 .6 1' material='shader: flat; color: white' link='target: hills.html'></a-plane>
         </a-entity>
-        <a-sky color="#000c15"></a-sky>
+
+            <a-camera id='camera' position='-7.637 2.547 -0.559' rotation='-20 -83 0' user-height='0' universal-controls="movementControls: checkpoint" checkpoint-controls="mode: teleport">
+                <a-cursor material='color: white'></a-cursor>
+            </a-camera>
+            <a-box scale='.5 .5 .5' id="checkpoint-1" position='-8.5 2 0' checkpoint></a-box>
+            <a-box scale='.5 .5 .5' id="checkpoint-2" position='2.8 2 0' checkpoint></a-box>
+            <a-box scale='.5 .5 .5' id="checkpoint-3" position='8.5 2 0' checkpoint></a-box>
+        <a-sky color="#111"></a-sky>
     </a-scene>
 </body>
 

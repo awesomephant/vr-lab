@@ -4,27 +4,29 @@
 <head>
     <meta charset="utf-8">
     <title>Noir</title>
-    <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+    <script src="https://rawgit.com/aframevr/aframe/e7f78bd/dist/aframe-master.min.js"></script>
     <script src="./js/button-controller.js"></script>
 </head>
 
 <body>
     <a-scene antialias="false" physics="false">
         <a-assets>
+            <a-asset-item id="shutter-model" src="models/noir/shutter.obj"></a-asset-item>
+            <a-asset-item id="room-model" src="models/noir/room.obj"></a-asset-item>
         </a-assets>
 
-        <a-light light="color: #fff; intensity: 1; type: directional; castShadow:true;shadowMapHeight:512; shadowMapWidth:512" rotation='0 -12 8'
-            position="-9 3.157 7.573"></a-light>
-        <a-light light="color: #fff; intensity: .51; type: ambient;" position="-9 7 3"></a-light>
+        <a-light id='sun' light="color: #fff; intensity: 2; type: point; castShadow:true;shadowMapHeight:1024; shadowMapWidth:1024" rotation='0 -12 8'
+            position="-3.5 13 -28"></a-light>
+        <a-light light="color: #fff; intensity: 0; type: ambient;" position="-9 7 3"></a-light>
 
         <a-camera position='-1.2 0 4.4' look-controls wasd-controls>
-          <a-cursor></a-cursor>
+            <a-cursor></a-cursor>
         </a-camera>
-        <a-sky color="#97D0D6"></a-sky>
-        <!--<a-entity position='0 2 0' scale='5 5 5' text="value: Shake things up.;"></a-entity>-->
-
-        <a-box id='button-base' material='color:#00CB6F; roughness: 1' position='1 .7 1' width='1.4' depth="1.4" height=".7" width="1"></a-box>
-        <a-box id='button-button' handle-button material='color:#396CFF; roughness: 1' position='1 1 1' depth="1" height="1" width="1"></a-box>
+        <a-entity shadow='cast: true; receive: true' material='roughness: 1' position='0 0 -6' rotation='0 -90 0' scale='.5 .5 .5' obj-model="obj: #shutter-model"></a-entity>
+        <a-entity shadow='cast: true; receive: true' material='roughness: 1' position='0 0 -6' rotation='0 -90 0' scale='.5 .5 .5' obj-model="obj: #room-model"></a-entity>
+        <a-plane shadow='receive: true' id="floor" position='0 -1.5 0' rotation='-90 0 0' scale='30 30 30'></a-plane>
+        <a-box shadow='reiceive: true'></a-box>
+        <a-sky color="#000"></a-sky>
 
     </a-scene>
 </body>

@@ -5,6 +5,8 @@ AFRAME.registerComponent("lightswitch", {
         var duration = 15000;
         var data = this.data;
         var el = this.el;  // <a-box>
+        var solutionTextEl = document.querySelector('#solution-text');
+        var solutionAnimation = document.createElement('a-animation');
         var sunEl = document.querySelector('#sun');
         var sunAnimation = document.createElement("a-animation");
         var sunAnimationColor = document.createElement("a-animation");
@@ -39,7 +41,13 @@ AFRAME.registerComponent("lightswitch", {
         skyAnimation.setAttribute('direction', 'both')
         skyAnimation.setAttribute('from', '#687F98')
         skyAnimation.setAttribute('to', '#050512')
-        skyAnimation.setAttribute('dur', duration)    
+        skyAnimation.setAttribute('dur', duration)
+
+        solutionAnimation.setAttribute('attribute', 'opacity')    
+        solutionAnimation.setAttribute('from', 0)    
+        solutionAnimation.setAttribute('to', 1)    
+        solutionAnimation.setAttribute('dur', duration)    
+        solutionAnimation.setAttribute('direction', 'forwards')    
   
         this.el.addEventListener('mouseenter', function (e) {
             el.setAttribute("material", { color: '#3982FF' })
@@ -53,6 +61,7 @@ AFRAME.registerComponent("lightswitch", {
               ambientEl.appendChild(ambientAnimation);
               skyEl.appendChild(skyAnimation);
               laptopLight.appendChild(laptopLightAnimation);
+            solutionTextEl.appendChild(solutionAnimation);
         });
     }
 });
