@@ -13,6 +13,13 @@ AFRAME.registerComponent("enemy-controller", {
         this.el.addEventListener("click", function (evt) {
             el.setAttribute("material", { color: '#396CFF' })
             console.log('enemy hit')
+            gameState.score += 1;
+
+            if (gameState.score >= gameState.requiredScore){
+                gameState.canProgress = true;
+                
+            }
+
         });
     }
 });

@@ -8,6 +8,7 @@
     <script src="./js/link-component.js"></script>
     <script src="./js/hover-component.js"></script>
     <script src="./js/enemy-ship-controller.js"></script>
+    <script src="./js/hills/gamestate.js"></script>
     <script src="https://rawgit.com/protyze/aframe-curve-component/master/dist/aframe-curve-component.min.js"></script>
     <script src="https://rawgit.com/protyze/aframe-alongpath-component/master/dist/aframe-alongpath-component.min.js"></script>
 </head>
@@ -61,9 +62,10 @@
             <a-curve-point position="16 -1.8 -2.4"></a-curve-point>
         </a-curve>
         <a-entity position='-15.7 -3.85 2.4' rotation='0 -88 0' id='ship' alongpath="curve: #track1; dur: 200000; rotate: false">
-            <a-entity position='0.014 0.268 -0.75' rotation='0 0 0' camera="userHeight: 0" look-controls>
+            <a-entity id='camera' position='0.014 0.268 -0.75' rotation='0 0 0' camera="userHeight: 0" look-controls>
                 <a-cursor fuse='true' fuse-timeout='500'></a-cursor>
             </a-entity>
+            <a-plane width='.1' height='.1' position='-0.075 0.619 0.776' rotation='0 180 0'link='target: index.html'></a-plane>
             <a-entity scale='1 1 1' material='color: #e2e2e2; roughness: 1; shader:standard;' obj-model="obj: #_ship" shadow="cast: true; receive: true">></a-entity>
         </a-entity>
 
