@@ -19,12 +19,16 @@
             <a-asset-item id="tube-polemergers" src="models/tube/tube-pole-mergers.obj"></a-asset-item>
             <a-asset-item id="tube-lights" src="models/tube/tube-lights.obj"></a-asset-item>
             <a-asset-item id="tube-armrests" src="models/tube/tube-armrests.obj"></a-asset-item>
+            <a-asset-item id="_camera" src="models/tube/camera.obj"></a-asset-item>
         </a-assets>
 
         <a-light id='light-sun' light="color: #1F2C82; intensity: 0; type: directional; castShadow:true;shadowMapHeight:512; shadowMapWidth:512"
             rotation='0 -12 8' position="-9 3.157 7.573"></a-light>
         <a-light id='light-ambient' light="color: #fff; intensity: 0; type: ambient;" position="-9 7 3"></a-light>
         <a-entity id='train'>
+            <a-light id='outside-light' position='-15 1.4 2.54' light="color: #fff; intensity: 2.3; type: point;distance: 5;decay:1;">
+                <a-animation easing='linear' to='15 1.4 2.54' attribute='position' delay='3000'dur='800' fill='forwards' repeat='indefinite'></a-animation>
+            </a-light>
             <a-light position='-6.909 2.671 -0.502' light="color: #fff; intensity: .3; type: point;distance: 4.5;decay:0.620;intensity:.500;"></a-light>
             <a-light position='.26 2.671 -0.502' light="color: #fff; intensity: .3; type: point;distance: 4.5;decay:0.620;intensity:.500;"></a-light>
             <a-light position='6.82 2.671 -0.502' light="color: #fff; intensity: .3; type: point;distance: 4.5;decay:0.620;intensity:.500;"></a-light>
@@ -42,10 +46,10 @@
             <a-camera id='camera' position='-7.637 2.547 -0.559' rotation='-20 -83 0' user-height='0' universal-controls="movementControls: checkpoint" checkpoint-controls="mode: teleport">
                 <a-cursor material='color: white'></a-cursor>
             </a-camera>
-            <a-box scale='.5 .5 .5' id="checkpoint-1" position='-8.5 2 0' checkpoint></a-box>
-            <a-box scale='.5 .5 .5' id="checkpoint-2" position='2.8 2 0' checkpoint></a-box>
-            <a-box scale='.5 .5 .5' id="checkpoint-3" position='8.5 2 0' checkpoint></a-box>
-        <a-sky color="#111"></a-sky>
+            <a-entity obj-model='obj: #_camera' scale='.5 .5 .5' id="checkpoint-1" position='-9.786 2.772 -2.347' rotation='180 0 0' checkpoint></a-entity>
+            <a-entity obj-model='obj: #_camera' scale='.5 .5 .5' id="checkpoint-2" position='2.8 2 0'rotation='180 0 0' checkpoint></a-entity>
+            <a-entity obj-model='obj: #_camera' scale='.5 .5 .5' id="checkpoint-3" position='8.5 2 0'rotation='180 0 0' checkpoint></a-entity>
+        <a-sky color="#000"></a-sky>
     </a-scene>
 </body>
 
