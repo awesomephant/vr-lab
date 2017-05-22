@@ -27,7 +27,14 @@
             <a-asset-item id="rock-7" src="models/mountain/rock-7.obj"></a-asset-item>
             <a-asset-item id="_ship" src="models/mountain/spaceship.obj"></a-asset-item>
             <a-asset-item id="_ship-screen" src="models/mountain/spaceship-screen.obj"></a-asset-item>
+            <video id="_vhs" autoplay loop="true" src="models/vhs-2.mp4"></video>
+            <audio id="sound-ambient" src="./sounds/space-ambient.mp3"></audio>
+            <audio id="sound-ship" src="./sounds/ship.mp3"></audio>
+      
         </a-assets>
+
+   <a-sound src="#sound-ambient" volume='.6' autoplay="true" position="-5 2 5"></a-sound>
+
 
         <a-light light="color: #FFE490; intensity: 1; type: directional; castShadow:true;shadowMapHeight:512; shadowMapWidth:512"
             rotation='0 -12 8' position="-12 8 -23"></a-light>
@@ -51,10 +58,10 @@
         </a-entity>
         <a-sky material="fog: false" color="#FFB2B6"></a-sky>
         <a-box material='shader: flat; color: white' depth='.2' width='20' position='-46 15 5' id='ship'>
-            <a-animation delay='5000' easing='linear' attribute='position' dur='8000' to='150 10 5'></a-animation>
+            <a-animation delay='19000' easing='linear' attribute='position' dur='8000' to='150 10 5'></a-animation>
         </a-box>
         <a-box material='shader: flat; color: white' depth='.2' width='20' position='-46 15 2' id='ship'>
-            <a-animation delay='4500' easing='linear' attribute='position' dur='8000' to='150 10 2'></a-animation>
+            <a-animation delay='18500' easing='linear' attribute='position' dur='8000' to='150 10 2'></a-animation>
         </a-box>
         <a-curve id="track1">
             <a-curve-point position="-13 -3.8 3.5"></a-curve-point>
@@ -64,14 +71,26 @@
         </a-curve>
         <a-entity position='-15.7 -3.85 2.4' rotation='0 -88 0' id='ship' alongpath="curve: #track1; dur: 200000; rotate: false">
             <a-entity id='camera' position='0.014 0.268 -0.75' rotation='0 0 0' camera="userHeight: 0" look-controls>
-                <a-cursor fuse='true' fuse-timeout='500'></a-cursor>
+                <a-entity cursor="fuse: true; fuseTimeout: 1000" position="0 0 -.2" geometry="primitive: ring; radiusInner: 0.002; radiusOuter: 0.003"
+                    material="color: white; shader: flat">
+                </a-entity>
             </a-entity>
-            <a-plane width='.1' height='.1' position='-0.075 0.619 0.776' rotation='0 180 0'link='target: index.html'></a-plane>
             <a-entity scale='1 1 1' material='color: #e2e2e2; roughness: 1; shader:standard;' obj-model="obj: #_ship" shadow="cast: true; receive: true">></a-entity>
-            <a-entity scale='0.036 0.036 0.036' position='0 0.154 -1.013' material='color: #e2e2e2; roughness: 1; shader:standard;' obj-model="obj: #_ship-screen" shadow="cast: true; receive: true">></a-entity>
+            <a-entity scale='0.046 0.037 0.036' position='0 0.154 -1.013' material='color: #e0e0e0; roughness: 1; shader:standard;' obj-model="obj: #_ship-screen"
+                shadow="cast: true; receive: true">></a-entity>
+            <a-plane material='color: #222' link="target: room-wire.html" height='0.080' width='0.100' scale='1 0.785 1' position='0.001 0.159 -1.013'
+                rotation='0.859 1.146 -0.573'></a-plane>
+
         </a-entity>
 
-        <a-entity enemy-controller id='enemy-ship' scale='1 1 1' material='color: red; roughness: 1; shader:standard;' obj-model="obj: #_ship"></a-entity>
+        <a-entity id='enemy-ship' scale='1 1 1' rotation='6 -90 0' position='-40 -2.862 2.580' sound="src: #sound-ship; volume: .8; autoplay: true" material='color: white; roughness: 1; shader:standard;'
+            obj-model="obj: #_ship">
+            <a-animation delay='6000' attribute='position' dur='13000' to='80.667 12.397 2.580'>
+        </a-entity>
+        <a-entity id='enemy-ship' sound="src: #sound-ship; volume: .9; autoplay: true" scale='1 1 1' rotation='6 -90 0' position='-50 -3.798 7.315' material='color: white; roughness: 1; shader:standard;'
+            obj-model="obj: #_ship">
+            <a-animation delay='12000' attribute='position' dur='12000' to='80.667 12.397 2.580'>
+        </a-entity>
 
     </a-scene>
 </body>

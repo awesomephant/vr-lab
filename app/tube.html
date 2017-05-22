@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <title>Tube</title>
     <script src="https://rawgit.com/aframevr/aframe/e7f78bd/dist/aframe-master.min.js"></script>
-    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.8.1/dist/aframe-extras.min.js"></script>
     <script src="./js/link-component.js"></script>
     <script src="./js/tube/gamestate.js"></script>
 </head>
@@ -19,36 +18,69 @@
             <a-asset-item id="tube-polemergers" src="models/tube/tube-pole-mergers.obj"></a-asset-item>
             <a-asset-item id="tube-lights" src="models/tube/tube-lights.obj"></a-asset-item>
             <a-asset-item id="tube-armrests" src="models/tube/tube-armrests.obj"></a-asset-item>
+            <a-asset-item id="_c1" src="models/tube/c-1.obj"></a-asset-item>
+            <a-asset-item id="_c1-mtl" src="/models/tube/c-1.mtl"></a-asset-item>
             <a-asset-item id="_camera" src="models/tube/camera.obj"></a-asset-item>
+            <a-asset-item id="_c2" src="models/tube/c-2.obj"></a-asset-item>
+            <a-asset-item id="c2-mtl" src="/models/tube/c-2.mtl"></a-asset-item>
+            <a-asset-item id="_c3" src="models/tube/c-3.obj"></a-asset-item>
+            <a-asset-item id="c3-mtl" src="/models/tube/c-3.mtl"></a-asset-item>
+            <a-asset-item id="_c4" src="models/tube/c-4.obj"></a-asset-item>
+            <a-asset-item id="c4-mtl" src="/models/tube/c-4.mtl"></a-asset-item>
+            <a-asset-item id="_c5" src="models/tube/c-5.obj"></a-asset-item>
+            <a-asset-item id="c6-mtl" src="/models/tube/c-5.mtl"></a-asset-item>
+            <audio id="sound-tube" src="./sounds/tube.mp3"></audio>      
         </a-assets>
+   <a-sound src="#sound-tube" volume='.8' autoplay="true" position="1 6 0"></a-sound>
 
-        <a-light id='light-sun' light="color: #1F2C82; intensity: 0; type: directional; castShadow:true;shadowMapHeight:512; shadowMapWidth:512"
-            rotation='0 -12 8' position="-9 3.157 7.573"></a-light>
-        <a-light id='light-ambient' light="color: #fff; intensity: 0; type: ambient;" position="-9 7 3"></a-light>
+        <a-light id='light-ambient' light="color: #fff; intensity: 0.051; type: ambient;" position="-9 7 3"></a-light>
         <a-entity id='train'>
-            <a-light id='outside-light' position='-15 1.4 2.54' light="color: #fff; intensity: 2.3; type: point;distance: 5;decay:1;">
-                <a-animation easing='linear' to='15 1.4 2.54' attribute='position' delay='3000'dur='800' fill='forwards' repeat='indefinite'></a-animation>
+            <a-light id='outside-light' position='-125 1.4 2.54' light="color: #fff; intensity: 2.3; type: point;distance: 5;decay:.01;">
+                <a-animation easing='linear' to='125 1.4 2.54' attribute='position' delay='000'dur='5800' fill='forwards' repeat='indefinite'></a-animation>
             </a-light>
-            <a-light position='-6.909 2.671 -0.502' light="color: #fff; intensity: .3; type: point;distance: 4.5;decay:0.620;intensity:.500;"></a-light>
-            <a-light position='.26 2.671 -0.502' light="color: #fff; intensity: .3; type: point;distance: 4.5;decay:0.620;intensity:.500;"></a-light>
-            <a-light position='6.82 2.671 -0.502' light="color: #fff; intensity: .3; type: point;distance: 4.5;decay:0.620;intensity:.500;"></a-light>
-            <a-entity id='train-walls' material='roughness: 1' obj-model="obj: #tube-train" scale='1 1 1' position='0 0 0' rotation='0 0 0' shadow="cast: true"></a-entity>
-            <a-entity id='train-seats' material='' obj-model="obj: #tube-seats" scale='1 1 1' position='0 0 0' rotation='0 0 0'
-                shadow="cast: true"></a-entity>
-            <a-entity id='train-poles' material='' obj-model="obj: #tube-poles" scale='1 1 1' position='0 0 0' rotation='0 0 0'
+            <a-light position='-6.909 2.671 -0.502' light="color: #fff; intensity: 0.7; type: point;distance: 1.5;decay:0.620;"></a-light>
+            <a-light position='.26 2.671 -0.502' light="color: #fff; intensity: 0.7; type: point;distance: 1.3;decay:0.620;"></a-light>
+            <a-light position='6.82 2.671 -0.502' light="color: #fff; intensity: 0.8; type: point;distance: 1.4;decay:0.620;"></a-light>
+            
+            <!-- PHONE LIGHTS -->
+            <a-light position='-0.697 0.577 0.095' light="color: #fff; intensity: 0.8; type: point;distance: .8;decay:0.820;">
+                       <a-animation attribute='light.intensity' to='.72' dur='1400' repeat='indefinite' direction='alternate'></a-animation>
+            </a-light>
+            <a-light position='1.355 0.679 -0.042' light="color: #fff; intensity: 0.7; type: point;distance: .8;decay:1;">
+                       <a-animation attribute='light.intensity' to='.64' dur='1600' repeat='indefinite' direction='alternate'></a-animation>
+           </a-light>
+            <a-entity id='train-walls' material='roughness: 1; color: #fff' obj-model="obj: #tube-train" scale='1 1 1' position='0 0 0' rotation='0 0 0' shadow="cast: true"></a-entity>
+            <a-entity id='train-walls-1' material='roughness: 1' obj-model="obj: #tube-train" scale='1 1 1' position='23 0 0' rotation='0 0 0' shadow="cast: true"></a-entity>
+            <a-entity id='train-walls-2' material='roughness: 1' obj-model="obj: #tube-train" scale='1 1 1' position='-23 0 0' rotation='0 0 0' shadow="cast: true"></a-entity>
+            <a-entity id='train-seats' material='color: #057BFF; roughness: 1' obj-model="obj: #tube-seats" scale='1 1 1' position='0 0 0' rotation='0 0 0'></a-entity>
+            
+            <a-entity id='c1' obj-model="obj: #_c1; mtl: #_c1-mtl" scale='.4 .4 .4' position='-0.626 0.256 -1.227' rotation='1.261 -12 6'shadow="cast: true">
+                <a-animation attribute='rotation' to='0.115 -11.9 0.115' dur='2400' repeat='indefinite' direction='alternate'></a-animation>
+            </a-entity>
+            <a-entity id='c2' obj-model="obj: #_c2; mtl: #c2-mtl" scale='.4 .4 .4' position='6.738 1.498 -0.501' rotation='0 -13 0'shadow="cast: true"></a-entity>
+            <a-entity id='c3' obj-model="obj: #_c3; mtl: #c3-mtl" scale='.6 .6 .6' position='1.964 0.466 -1.271' rotation='-3 -25 0'shadow="cast: true">
+                <a-animation attribute='rotation' to='2.3 -25 0' dur='2000' repeat='indefinite' direction='alternate'></a-animation>
+            </a-entity>
+            <a-entity id='c4' obj-model="obj: #_c4" material='color: teal' scale='.4 .4 .4' position='-1.332 -0.125 -1.108' rotation='0 -158 -29'shadow="cast: true">
+                <a-animation attribute='scale' to='.37 .4 .35' dur='2500' repeat='indefinite' direction='alternate'></a-animation>
+            </a-entity>
+            <a-entity id='c5' obj-model="obj: #_c5; mtl: #c5-mtl" scale='.4 .4 .4' position='-3.545 0 -1.409' rotation='0 165 0'shadow="cast: true"></a-entity>
+            
+            <a-entity id='train-poles' material='color: #057BFF' obj-model="obj: #tube-poles" scale='1 1 1' position='0 0 0' rotation='0 0 0'
                 shadow="cast: true"></a-entity>
             <a-entity id='train-polemergers' material='color: white' obj-model="obj: #tube-polemergers" scale='1 1 1' position='0 0 0' rotation='0 0 0' shadow="cast: true"></a-entity>
             <a-entity id='train-lights' material='shader: flat; color: white' position='0 -0.022 0' obj-model="obj: #tube-lights" scale='1 1 1' position='0 0 0' rotation='0 0 0' shadow="cast: true"></a-entity>
             <a-entity id='train-armrests' material='color: #555;' obj-model="obj: #tube-armrests" scale='1 1 1' position='0 0 0' rotation='0 0 0' shadow="cast: true"></a-entity>
-            <a-plane position='-9.364 0.783 1.068' rotation='0 171.601 0' scale='0.460 .6 1' material='shader: flat; color: white' link='target: hills.html'></a-plane>
+            <a-plane position='.4 0.599 0.169' height='0.380' width='.3' rotation='-52.769 0 0' scale='0.460 .6 1' material='shader: flat; color: white' link='target: hills.html'></a-plane>
+            <a-plane position='-0.658 0.599 0.169' height='0.380' width='.3' rotation='-52.769 -23 0' scale='0.460 .6 1' material='shader: flat; color: white' link='target: hills.html'></a-plane>
+            <a-plane position='1.339 0.599 -0.083' height='0.380' width='.3' rotation='-70 -148 153' scale='0.460 .6 1' material='shader: flat; color: white' link='target: hills.html'></a-plane>
         </a-entity>
 
-            <a-camera id='camera' position='-7.637 2.547 -0.559' rotation='-20 -83 0' user-height='0' universal-controls="movementControls: checkpoint" checkpoint-controls="mode: teleport">
-                <a-cursor material='color: white'></a-cursor>
+            <a-camera id='camera' position='0.3 1.3 .35 -0.559' rotation='-20 -83 0' user-height='0'>
+                  <a-entity cursor="fuse: true; fuseTimeout: 500" position="0 0 -.1" geometry="primitive: ring; radiusInner: 0.001; radiusOuter: 0.0014"
+                material="color: white; shader: flat">
+            </a-entity>
             </a-camera>
-            <a-entity obj-model='obj: #_camera' scale='.5 .5 .5' id="checkpoint-1" position='-9.786 2.772 -2.347' rotation='180 0 0' checkpoint></a-entity>
-            <a-entity obj-model='obj: #_camera' scale='.5 .5 .5' id="checkpoint-2" position='2.8 2 0'rotation='180 0 0' checkpoint></a-entity>
-            <a-entity obj-model='obj: #_camera' scale='.5 .5 .5' id="checkpoint-3" position='8.5 2 0'rotation='180 0 0' checkpoint></a-entity>
         <a-sky color="#000"></a-sky>
     </a-scene>
 </body>

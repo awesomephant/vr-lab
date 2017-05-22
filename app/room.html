@@ -6,9 +6,7 @@
     <title>Hello, World! - A-Frame</title>
     <meta name="description" content="Hello, World! - A-Frame">
     <script src="https://rawgit.com/aframevr/aframe/e7f78bd/dist/aframe-master.min.js"></script>
-    <script src="./js/gamestate.js"></script>
     <script src="./js/link-component.js"></script>
-    <script src="./js/keypad-controller.js"></script>
     <script src="./js/lightswitch.js"></script>
 </head>
 
@@ -29,9 +27,12 @@
             <a-asset-item id="bin" src="models/bin.obj"></a-asset-item>
             <a-asset-item id="cup" src="models/cup.obj"></a-asset-item>
             <a-asset-item id="lightswitch" src="models/lightswitch.obj"></a-asset-item>
-            <img id="escape-text" src="models/escape-text.png">
+            <video id="_vhs" autoplay loop="true" src="models/vhs.mp4"></video>
+            <audio id="sound-birds" src="./sounds/spring-birds.mp3"></audio>
+      
         </a-assets>
-
+   <a-sound src="#sound-birds" volume='.8' autoplay="true" position="-5 2 1"></a-sound>
+ 
         <a-light id='sun' light="color: #FFE2AB;intensity: 1.5; type: directional; castShadow:true;shadowMapHeight:512; shadowMapWidth:512"
             rotation='0 -12 8' position="-13.720 3.157 -5">
 
@@ -70,19 +71,6 @@
             shadow="cast: true"></a-entity>`
         <a-entity id='chair-8' obj-model="obj: #chair" scale='.5 .5 .5' material='color:#FFDA53;' position='6.243 0.681 6.817' rotation='0 -115 0'
             shadow="cast: true"></a-entity>`
-
-        <a-entity id='keypad' position='2.5 1.276 0'>
-            <a-box position='-.2 0 .17' key='value: 1' class="keypad-key"></a-box>
-            <a-box position='-.2 0 0' key='value: 2' class="keypad-key"></a-box>
-            <a-box position='-.2 0 -.17' key='value: 3' class="keypad-key"></a-box>
-            <a-box position='0 0 .17' key='value: 4' class="keypad-key"></a-box>
-            <a-box position='0 0 0' key='value: 5' class="keypad-key"></a-box>
-            <a-box position='0 0 -.17' key='value: 6' class="keypad-key"></a-box>
-            <a-box position='.2 0 .17' key='value: 7' class="keypad-key"></a-box>
-            <a-box position='.2 0 0' key='value: 8' class="keypad-key"></a-box>
-            <a-box position='.2 0 -.17' key='value: 9' class="keypad-key"></a-box>
-            <a-box id="keypad-base" depth='0.580' height='.1' width='.68'></a-box>
-        </a-entity>
 
         <!--Table 1-->
         <a-box id='table-1' static-body='shape: box;' material="color:#43E4B6; roughness: 1" shadow="cast: true; receive:true" depth="4"
@@ -138,11 +126,8 @@
         <a-plane id='roof' static-body material='shader: standard; metalness: 0; color: rgb(220,220,220)' shadow="receive: true"
             position="1.861 7.607 1.669" rotation="90 0 0" width="17.240" height="24.780"></a-plane>
 
-        <a-image position='-2 3 0' rotation='0 90 0' width='10' height='1.685' src="#escape-text">
-            <a-animation attribute='material.opacity' easing='linear' fill='both' from='0' to='0' dur='2500' delay='4000'></a-animation>
-        </a-image>
-<a-text id='solution-text' scale='5 5 5' position='0 5 2' rotation='90 90 0' opacity='0' value="2361"></a-text>
-        <a-plane material='color: pink' link="target: tube.html" position='1.555 2 -3.74'></a-plane>
+        <a-video src="#_vhs" link="target: tube.html" height='1.28' width='2.1' position='1.603 2 -3.816' rotation='0 6.8 0'></a-video>
+
         <a-box depth='2.1' height='3.96' width='.1' id="canvas-1" rotation='0 0 -8' position='9.077 2.024 2.357' material='color: #0567FF' shadow='receive: true; cast: true'></a-box>
         <a-box depth='1.5' height='5.760' width='9.340' id="shelf" rotation='0 -11.230 0' position='-2.215 2.613 11.167' material='color: #FFF' shadow='receive: true; cast: true'></a-box>
         <a-sky id='sky' color="#687F98">

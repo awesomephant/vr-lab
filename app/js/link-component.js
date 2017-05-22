@@ -15,15 +15,13 @@ AFRAME.registerComponent("link", {
         });
         this.el.addEventListener("click", function (evt) {
             var pos = el.getAttribute('position');
-            if (gameState.canProgress) {
-                cameraAnimation.setAttribute("attribute", "position");
-                cameraAnimation.setAttribute("to", pos.x + ' ' + pos.y + ' ' + pos.z);
-                cameraAnimation.setAttribute("dur", 5000);
-                camera.appendChild(cameraAnimation);
-                setTimeout(function () {
-                    window.location.href = data.target;
-                }, 4000)
-            }
+            cameraAnimation.setAttribute("attribute", "position");
+            cameraAnimation.setAttribute("to", pos.x + ' ' + pos.y + ' ' + pos.z);
+            cameraAnimation.setAttribute("dur", 5000);
+            camera.appendChild(cameraAnimation);
+            setTimeout(function () {
+                window.location.href = data.target;
+            }, 4000)
         });
     }
 });

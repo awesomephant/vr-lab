@@ -14,7 +14,6 @@ AFRAME.registerComponent("hover", {
         var position = el.getAttribute("position");
         var animation = document.createElement("a-animation");
         el.setAttribute('material', 'color: #E6F1FA; roughness: 1')
-        el.setAttribute('rotation', 'color: #E6F1FA; roughness: 1')
         el.setAttribute('shadow', 'cast: true; receive: true')
         animation.setAttribute('attribute', 'position');
         animation.setAttribute('from', position.x + ' ' + position.y + ' ' + position.z);

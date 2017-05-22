@@ -7,10 +7,12 @@
     <meta name="description" content="Hello, World! - A-Frame">
     <script src="https://rawgit.com/aframevr/aframe/e7f78bd/dist/aframe-master.min.js"></script>
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v1.4.0/dist/aframe-physics-system.min.js"></script>
+      <script src="./js/link-component.js"></script>
+  
 </head>
 
 <body>
-    <a-scene antialias="false" physics="debug: false; gravity:.001">
+    <a-scene antialias="false" physics="debug: false; gravity:.002">
         <a-assets>
             <a-asset-item id="wall" src="models/wall.dae"></a-asset-item>
             <a-asset-item id="laptop" src="models/laptop.obj"></a-asset-item>
@@ -26,19 +28,19 @@
             <a-asset-item id="bin" src="models/bin.obj"></a-asset-item>
             <a-asset-item id="cup" src="models/cup.obj"></a-asset-item>
             <a-asset-item id="lightswitch" src="models/lightswitch.obj"></a-asset-item>
+            <a-asset-item id="_cardboard" src="models/goggles.obj"></a-asset-item>
             <img id="escape-text" src="models/escape-text.png">
-
+            <audio id="sound-ambient" src="./sounds/ambient.mp3"></audio>
         </a-assets>
-
+    <a-sound src="#sound-ambient" volume='2' autoplay="true" position="0 2 5"></a-sound>
         <a-light light="color: white; intensity: 1; type: ambient;" position="-9 7 3"></a-light>
-        <a-image position='-2 3 0' rotation='0 90 0' width='10' height='1.685' src="#escape-text">
-            <a-animation attribute='material.opacity' easing='linear' fill='both' from='0' to='1' dur='2500' delay='4000'></a-animation>
-        </a-image>
-        <a-entity position='3.12 0 0' camera="userHeight: 1.6" look-controls wasd-controls>
-            <a-light light='color: #FFE2C0; intensity: 1; type: spot; castShadow: true; shadowMapHeight:512; shadowMapWidth:512; angle: 20; distance: 16; penumbra: .73'
-                position='.7 .2 .2'></a-light>
+        <a-entity id='camera' rotation='0 70 0' position='3.12 0 0' camera="userHeight: 1.6" look-controls wasd-controls>
+            <a-cursor fuse='true' color='#eee'></a-cursor>
         </a-entity>
-        <a-entity dynamic-body='shape: box;' material='wireframe: true' obj-model="obj: #laptop" shadow="cast: true"></a-entity>`
+        <a-entity position='3 .7 3' scale='.2 .2 .2' rotation='0 -160 4' link='target: room.html' dynamic-body='shape: box;' material='wireframe: true' obj-model="obj: #_cardboard">
+        </a-entity>
+        <a-entity position='4.026 -0.635 2.553' rotation='-30 11 -10' dynamic-body='shape: box;' material='wireframe: true' obj-model="obj: #laptop" shadow="cast: true">
+        </a-entity>
         <a-entity dynamic-body='shape: box;' scale='1 1.467 1' position="-0.007 1.428 0.927" rotation="18.392 36.096 14.668" geometry="mergeTo:null;primitive:plane;height:0.14;width:0.14"
             material='wireframe: true'></a-entity>
         <a-entity position="0.011 1.438 .985" rotation="" light="angle:6.92;distance: 0.960;decay:0.780;intensity:0.48;penumbra:0.78;type:point;target:null"></a-entity>
