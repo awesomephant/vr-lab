@@ -29,11 +29,13 @@
             <a-asset-item id="lightswitch" src="models/lightswitch.obj"></a-asset-item>
             <video id="_vhs" autoplay loop="true" src="models/vhs.mp4"></video>
             <audio id="sound-birds" src="./sounds/spring-birds.mp3"></audio>
-            <img id="title" src="models/title-text.png">
+            <img id="title" src="models/title.png">
 
         </a-assets>
         <a-sound src="#sound-birds" volume='.8' autoplay="true" position="-5 2 1"></a-sound>
-        <a-image src="#title"></a-image>
+        <a-image width='4' height='1.2' scale='1.4 1.4 1.4' material='opacity: 0' rotation='0 90 0' position='-.4 2.688 .34' src="#title">
+            <a-animation attribute='material.opacity' to='1' dur='3000' delay='3000'></a-animation>
+        </a-image>
         <a-light id='sun' light="color: #FFE2AB;intensity: 1.5; type: directional; castShadow:true;shadowMapHeight:512; shadowMapWidth:512"
             rotation='0 -12 8' position="-13.720 3.157 -5">
 
