@@ -9,15 +9,18 @@
     <script src="./js/hover-component.js"></script>
     <script src="./js/enemy-ship-controller.js"></script>
     <script src="./js/hills/gamestate.js"></script>
+    <script src="./js/hills/spawnthings.js"></script>
     <script src="https://rawgit.com/protyze/aframe-curve-component/master/dist/aframe-curve-component.min.js"></script>
     <script src="https://rawgit.com/protyze/aframe-alongpath-component/master/dist/aframe-alongpath-component.min.js"></script>
 </head>
 
 <body>
-    <a-scene antialias="false" fog='type: exponential; color: #FFC2BE; density: 0.05'>
+    <a-scene spawnships antialias="false" fog='type: exponential; color: #FFC2BE; density: 0.003'>
         <a-assets>
-            <a-asset-item id="lander" src="models/lunar/lander-2.obj"></a-asset-item>
             <a-asset-item id="_hills" src="models/mountain/mountain.obj"></a-asset-item>
+            <a-asset-item id="_landscape" src="models/mountain/landscape.obj"></a-asset-item>
+            <a-asset-item id="_obelisk" src="models/mountain/obelisk.obj"></a-asset-item>
+            <a-asset-item id="_hills" src="models/mountain/obelisk.obj"></a-asset-item>
             <a-asset-item id="rock-1" src="models/mountain/rock-1.obj"></a-asset-item>
             <a-asset-item id="rock-2" src="models/mountain/rock-2.obj"></a-asset-item>
             <a-asset-item id="rock-3" src="models/mountain/rock-3.obj"></a-asset-item>
@@ -36,7 +39,7 @@
    <a-sound src="#sound-ambient" volume='.6' autoplay="true" position="-5 2 5"></a-sound>
 
 
-        <a-light light="color: #FFE490; intensity: 1; type: directional; castShadow:true;shadowMapHeight:512; shadowMapWidth:512"
+        <a-light light="color: #FFE490; intensity: 1; type: directional; castShadow:true;shadowMapHeight:128; shadowMapWidth:128"
             rotation='0 -12 8' position="-12 8 -23"></a-light>
         <a-light light="color: #5B1CFF; intensity: .41; type: directional;" rotation='0 -12 8' position="-12 11 25"></a-light>
         <a-light light="color: #fff; intensity: .31; type: ambient;" position="-9 7 3"></a-light>
@@ -54,8 +57,16 @@
         <a-entity hover position='-5.7 -1.9 5' scale='1.8 1.2 1.8' obj-model="obj: #rock-5"></a-entity>
         <a-entity hover position='-10 4 -2.5' scale='3.3 2.4 2.2' obj-model="obj: #rock-5"></a-entity>
         <a-entity hover position='-4 3 4.3' scale='3 1.8 1.8' rotation='-22 180 180' obj-model="obj: #rock-5"></a-entity>
-        <a-entity id='hills' scale='4 4 4' material='color: #43A4F8; roughness: 1; shader:standard;' obj-model="obj: #_hills" shadow="cast: true; receive: true">
+        <a-entity id='hills' scale='4 4 4' material='color: #43A4F8; roughness: 1; shader:standard;' obj-model="obj: #_hills" shadow="cast: true; receive: true"></a-entity>
+        
+        <a-entity position='147 -25 110' rotation='' id='landscape' scale='4 4 4' material='color: #FF344B; roughness: 1; shader:standard;' obj-model="obj: #_landscape"></a-entity>
+        <a-entity position='147 -88 -161' id='landscape' scale='4 4 4' material='color: #FF344B; roughness: 1; shader:standard;' obj-model="obj: #_landscape" shadow="cast: true; receive: true">
+            <a-entity position='0 0 0' id='obelisk' scale='1 1 1' material='fog: false; color: black; roughness: 1; shader:standard;' hover obj-model="obj: #_obelisk" shadow="cast: true; receive: true">
+            <a-animation direction='alternate' repeat='indefinite' attribute='position' to='0 -2 0' dur='3000'></a-animation>
+            </a-entity>
+             <a-box position='1.183 322 0.294' material='shader: flat; color: white' height='600' depth='1' width='1.3'></a-box>
         </a-entity>
+
         <a-sky material="fog: false" color="#FFB2B6"></a-sky>
         <a-box material='shader: flat; color: white' depth='.2' width='20' position='-46 15 5' id='ship'>
             <a-animation delay='19000' easing='linear' attribute='position' dur='8000' to='150 10 5'></a-animation>
@@ -67,10 +78,12 @@
             <a-curve-point position="-13 -3.8 3.5"></a-curve-point>
             <a-curve-point position="-2 -2.7 3.759"></a-curve-point>
             <a-curve-point position="10 0 1.4"></a-curve-point>
-            <a-curve-point position="16 -1.8 -2.4"></a-curve-point>
+            <a-curve-point position="17 -0 -3"></a-curve-point>
+            <a-curve-point position="41 0 -12"></a-curve-point>
+            <a-curve-point position="188 -10 -45"></a-curve-point>
         </a-curve>
-        <a-entity position='-15.7 -3.85 2.4' rotation='0 -88 0' id='ship' alongpath="curve: #track1; dur: 200000; rotate: false">
-            <a-entity id='camera' position='0.014 0.268 -0.75' rotation='0 0 0' camera="userHeight: 0" look-controls>
+        <a-entity position='-15.7 -3.85 2.4' rotation='0 -80 0' id='ship' alongpath="curve: #track1; dur: 100000; rotate: false; loop: true">
+            <a-entity id='camera' position='0.043 0.34 -0.646' rotation='0 0 0' camera="userHeight: 0" look-controls>
                 <a-entity cursor="fuse: true; fuseTimeout: 1000" position="0 0 -.2" geometry="primitive: ring; radiusInner: 0.002; radiusOuter: 0.003"
                     material="color: white; shader: flat">
                 </a-entity>
@@ -78,20 +91,10 @@
             <a-entity scale='1 1 1' material='color: #e2e2e2; roughness: 1; shader:standard;' obj-model="obj: #_ship" shadow="cast: true; receive: true">></a-entity>
             <a-entity scale='0.046 0.037 0.036' position='0 0.154 -1.013' material='color: #e0e0e0; roughness: 1; shader:standard;' obj-model="obj: #_ship-screen"
                 shadow="cast: true; receive: true">></a-entity>
-            <a-plane material='color: #222' link="target: room-wire.html" height='0.080' width='0.100' scale='1 0.785 1' position='0.001 0.159 -1.013'
+            <a-plane material='color: #222' height='0.080' width='0.100' scale='1 0.785 1' position='0.001 0.159 -1.013'
                 rotation='0.859 1.146 -0.573'></a-plane>
 
         </a-entity>
-
-        <a-entity id='enemy-ship' scale='1 1 1' rotation='6 -90 0' position='-40 -2.862 2.580' sound="src: #sound-ship; volume: .8; autoplay: true" material='color: white; roughness: 1; shader:standard;'
-            obj-model="obj: #_ship">
-            <a-animation delay='6000' attribute='position' dur='13000' to='80.667 12.397 2.580'>
-        </a-entity>
-        <a-entity id='enemy-ship' sound="src: #sound-ship; volume: .9; autoplay: true" scale='1 1 1' rotation='6 -90 0' position='-50 -3.798 7.315' material='color: white; roughness: 1; shader:standard;'
-            obj-model="obj: #_ship">
-            <a-animation delay='12000' attribute='position' dur='12000' to='80.667 12.397 2.580'>
-        </a-entity>
-
     </a-scene>
 </body>
 
