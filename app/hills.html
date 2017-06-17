@@ -61,8 +61,8 @@
         
         <a-entity position='147 -25 110' rotation='' id='landscape' scale='4 4 4' material='color: #FF344B; roughness: 1; shader:standard;' obj-model="obj: #_landscape"></a-entity>
         <a-entity position='147 -88 -161' id='landscape' scale='4 4 4' material='color: #FF344B; roughness: 1; shader:standard;' obj-model="obj: #_landscape" shadow="cast: true; receive: true">
-            <a-entity position='0 0 0' id='obelisk' scale='1 1 1' material='fog: false; color: black; roughness: 1; shader:standard;' hover obj-model="obj: #_obelisk" shadow="cast: true; receive: true">
-            <a-animation direction='alternate' repeat='indefinite' attribute='position' to='0 -2 0' dur='3000'></a-animation>
+            <a-entity position='0 -4 0' id='obelisk' scale='1.1 1.1 1.1' material='fog: false; color: black; roughness: 1; shader:standard;' hover obj-model="obj: #_obelisk" shadow="cast: true; receive: true">
+            <a-animation direction='alternate' repeat='indefinite' attribute='rotation' to='0 360 0' dur='12000'></a-animation>
             </a-entity>
              <a-box position='1.183 322 0.294' material='shader: flat; color: white' height='600' depth='1' width='1.3'></a-box>
         </a-entity>
@@ -83,7 +83,7 @@
             <a-curve-point position="188 -10 -45"></a-curve-point>
         </a-curve>
         <a-entity position='-15.7 -3.85 2.4' rotation='0 -80 0' id='ship' alongpath="curve: #track1; dur: 100000; rotate: false; loop: true">
-            <a-entity id='camera' position='0.043 0.34 -0.646' rotation='0 0 0' camera="userHeight: 0" look-controls>
+            <a-entity id='camera' position='0.0 0.32 -0.646' rotation='0 0 0' camera="userHeight: 0" look-controls>
                 <a-entity cursor="fuse: true; fuseTimeout: 1000" position="0 0 -.2" geometry="primitive: ring; radiusInner: 0.002; radiusOuter: 0.003"
                     material="color: white; shader: flat">
                 </a-entity>
