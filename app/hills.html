@@ -69,10 +69,10 @@
 
         <a-sky material="fog: false" color="#FFB2B6"></a-sky>
         <a-box material='shader: flat; color: white' depth='.2' width='20' position='-46 15 5' id='ship'>
-            <a-animation delay='19000' easing='linear' attribute='position' dur='8000' to='150 10 5'></a-animation>
+            <a-animation delay='19000' easing='linear' attribute='position' dur='80000' to='1500 10 5'></a-animation>
         </a-box>
         <a-box material='shader: flat; color: white' depth='.2' width='20' position='-46 15 2' id='ship'>
-            <a-animation delay='18500' easing='linear' attribute='position' dur='8000' to='150 10 2'></a-animation>
+            <a-animation delay='18500' easing='linear' attribute='position' dur='80000' to='1500 10 2'></a-animation>
         </a-box>
         <a-curve id="track1">
             <a-curve-point position="-13 -3.8 3.5"></a-curve-point>
@@ -89,10 +89,6 @@
                 </a-entity>
             </a-entity>
             <a-entity scale='1 1 1' material='color: #e2e2e2; roughness: 1; shader:standard;' obj-model="obj: #_ship" shadow="cast: true; receive: true">></a-entity>
-            <a-entity scale='0.046 0.037 0.036' position='0 0.154 -1.013' material='color: #e0e0e0; roughness: 1; shader:standard;' obj-model="obj: #_ship-screen"
-                shadow="cast: true; receive: true">></a-entity>
-            <a-plane material='color: #222' height='0.080' width='0.100' scale='1 0.785 1' position='0.001 0.159 -1.013'
-                rotation='0.859 1.146 -0.573'></a-plane>
 
         </a-entity>
     </a-scene>
