@@ -68407,9 +68407,9 @@ var registerComponent = _dereq_('../../core/component').registerComponent;
 var utils = _dereq_('../../utils');
 
 /**
- * Automatically enter VR, either upon vrdisplayactivate (e.g. putting on Rift headset)
+ * Automatically enter VR either upon `vrdisplayactivate` (e.g. putting on Rift headset)
  * or immediately (if possible) if display name contains data string.
- * The default data string is 'GearVR' for Carmel browser which only does VR.
+ * Default data string is `GearVR` for Carmel browser which only does VR.
  */
 module.exports.Component = registerComponent('auto-enter-vr', {
   schema: {
@@ -68421,43 +68421,44 @@ module.exports.Component = registerComponent('auto-enter-vr', {
     var scene = this.el;
     var self = this;
 
-    // define methods to allow mock testing
+    // Define methods to allow mock testing.
     this.enterVR = scene.enterVR.bind(scene);
     this.exitVR = scene.exitVR.bind(scene);
     this.shouldAutoEnterVR = this.shouldAutoEnterVR.bind(this);
 
-    // don't do anything if false
     if (utils.getUrlParameter('auto-enter-vr') === 'false') { return; }
 
-    // enter VR on vrdisplayactivate (e.g. putting on Rift headset)
+    // Enter VR on `vrdisplayactivate` (e.g. putting on Rift headset).
     window.addEventListener('vrdisplayactivate', function () { self.enterVR(); }, false);
 
-    // exit VR on vrdisplaydeactivate (e.g. taking off Rift headset)
+    // Exit VR on `vrdisplaydeactivate` (e.g. taking off Rift headset).
     window.addEventListener('vrdisplaydeactivate', function () { self.exitVR(); }, false);
 
-    // check if we should try to enter VR... turns out we need to wait for next tick
-    setTimeout(function () { if (self.shouldAutoEnterVR()) { self.enterVR(); } }, 0);
-  },
-
-  update: function () {
-    return this.shouldAutoEnterVR() ? this.enterVR() : this.exitVR();
+    // Check if we should try to enter VR. Need to wait for next tick.
+    setTimeout(function () {
+      if (self.shouldAutoEnterVR()) {
+        self.enterVR();
+      }
+    });
   },
 
   shouldAutoEnterVR: function () {
-    var scene = this.el;
     var data = this.data;
-    // if false, we should not auto-enter VR
+    var display;
+    var scene = this.el;
+
     if (!data.enabled) { return false; }
-    // if we have a data string to match against display name, try and get it;
-    // if we can't get display name, or it doesn't match, we should not auto-enter VR
+
+    // If we have data string to match against display name, try and get it.
+    // If we can't get display name or it doesn't match, do not auto-enter VR.
     if (data.display && data.display !== 'all') {
-      var display = scene.effect && scene.effect.getVRDisplay && scene.effect.getVRDisplay();
-      if (!display || !display.displayName || display.displayName.indexOf(data.display) < 0) { return false; }
+      display = scene.effect && scene.effect.getVRDisplay && scene.effect.getVRDisplay();
+      if (!display || !display.displayName || display.displayName.indexOf(data.display) < 0) {
+        return false;
+      }
     }
-    // we should auto-enter VR
-    //return true;
-    // HOTFIX
-    return false;
+
+    return true;
   }
 });
 
@@ -73849,18 +73850,18 @@ function vecParse (value) {
 
 },{"../utils/coordinates":164,"debug":7}],104:[function(_dereq_,module,exports){
 /* global Promise, screen */
-var initMetaTags = _dereq_('./metaTags').inject;
-var initWakelock = _dereq_('./wakelock');
-var re = _dereq_('../a-register-element');
-var scenes = _dereq_('./scenes');
-var systems = _dereq_('../system').systems;
-var THREE = _dereq_('../../lib/three');
-var TWEEN = _dereq_('tween.js');
-var utils = _dereq_('../../utils/');
+var initMetaTags = require('./metaTags').inject;
+var initWakelock = require('./wakelock');
+var re = require('../a-register-element');
+var scenes = require('./scenes');
+var systems = require('../system').systems;
+var THREE = require('../../lib/three');
+var TWEEN = require('tween.js');
+var utils = require('../../utils/');
 // Require after.
-var AEntity = _dereq_('../a-entity');
-var ANode = _dereq_('../a-node');
-var initPostMessageAPI = _dereq_('./postMessage');
+var AEntity = require('../a-entity');
+var ANode = require('../a-node');
+var initPostMessageAPI = require('./postMessage');
 
 var bind = utils.bind;
 var isIOS = utils.device.isIOS();
@@ -73885,7 +73886,7 @@ var warn = utils.debug('core:a-scene:warn');
  * @member {object} systems - Registered instantiated systems.
  * @member {number} time
  */
-module.exports = registerElement('a-scene', {
+module.exports.AScene = registerElement('a-scene', {
   prototype: Object.create(AEntity.prototype, {
     defaultComponents: {
       value: {
@@ -73913,10 +73914,11 @@ module.exports = registerElement('a-scene', {
 
     init: {
       value: function () {
-        this.behaviors = [];
+        this.behaviors = { tick: [], tock: [] };
         this.hasLoaded = false;
         this.isPlaying = false;
         this.originalHTML = this.innerHTML;
+        this.renderTarget = null;
         this.addEventListener('render-target-loaded', function () {
           this.setupRenderer();
           this.resize();
@@ -73958,48 +73960,73 @@ module.exports = registerElement('a-scene', {
 
         // Add to scene index.
         scenes.push(this);
+
+        // Handler to exit VR (e.g., Oculus Browser back button).
+        this.onVRPresentChangeBound = bind(this.onVRPresentChange, this);
+        window.addEventListener('vrdisplaypresentchange', this.onVRPresentChangeBound);
       },
       writable: window.debug
     },
 
+    /**
+     * Initialize all systems.
+     */
     initSystems: {
       value: function () {
         Object.keys(systems).forEach(bind(this.initSystem, this));
       }
     },
 
+    /**
+     * Initialize a system.
+     */
     initSystem: {
       value: function (name) {
-        var system;
         if (this.systems[name]) { return; }
-        system = this.systems[name] = new systems[name](this);
-        system.init();
+        this.systems[name] = new systems[name](this);
       }
     },
 
     /**
-     * Shuts down scene on detach.
+     * Shut down scene on detach.
      */
     detachedCallback: {
       value: function () {
         var sceneIndex;
-        window.cancelAnimationFrame(this.animationFrameID);
+
+        if (this.effect && this.effect.cancelAnimationFrame) {
+          this.effect.cancelAnimationFrame(this.animationFrameID);
+        } else {
+          window.cancelAnimationFrame(this.animationFrameID);
+        }
         this.animationFrameID = null;
+
         // Remove from scene index.
         sceneIndex = scenes.indexOf(this);
         scenes.splice(sceneIndex, 1);
+
+        window.removeEventListener('vrdisplaypresentchange', this.onVRPresentChangeBound);
       }
     },
 
     /**
-     * @param {object} behavior - Generally a component. Must implement a .update() method to
-     *        be called on every tick.
+     * Add ticks and tocks.
+     *
+     * @param {object} behavior - Generally a component. Must implement a .update() method
+     *   to be called on every tick.
      */
     addBehavior: {
       value: function (behavior) {
+        var self = this;
         var behaviors = this.behaviors;
-        if (behaviors.indexOf(behavior) !== -1) { return; }
-        behaviors.push(behavior);
+        // Check if behavior has tick and/or tock and add the behavior to the appropriate list.
+        Object.keys(behaviors).forEach(function (behaviorType) {
+          if (!behavior[behaviorType]) { return; }
+          var behaviorArr = self.behaviors[behaviorType];
+          if (behaviorArr.indexOf(behavior) === -1) {
+            behaviorArr.push(behavior);
+          }
+        });
       }
     },
 
@@ -74016,24 +74043,29 @@ module.exports = registerElement('a-scene', {
      * Call `requestFullscreen` on desktop.
      * Handle events, states, fullscreen styles.
      *
+     * @param {bool} fromExternal - Whether exiting VR due to an external event (e.g.,
+     *   manually calling requestPresent via WebVR API directly).
      * @returns {Promise}
      */
     enterVR: {
-      value: function (event) {
+      value: function (fromExternal) {
         var self = this;
 
         // Don't enter VR if already in VR.
         if (this.is('vr-mode')) { return Promise.resolve('Already in VR.'); }
 
-        if (this.checkHeadsetConnected() || this.isMobile) {
+        // Enter VR via WebVR API.
+        if (!fromExternal && (this.checkHeadsetConnected() || this.isMobile)) {
           return this.effect.requestPresent().then(enterVRSuccess, enterVRFailure);
         }
+
+        // Either entered VR already via WebVR API or VR not supported.
         enterVRSuccess();
         return Promise.resolve();
 
         function enterVRSuccess () {
           self.addState('vr-mode');
-          self.emit('enter-vr', event);
+          self.emit('enter-vr', {target: self});
 
           // Lock to landscape orientation on mobile.
           if (self.isMobile && screen.orientation && screen.orientation.lock) {
@@ -74064,10 +74096,12 @@ module.exports = registerElement('a-scene', {
      * Call `exitPresent` if WebVR or WebVR polyfill.
      * Handle events, states, fullscreen styles.
      *
+     * @param {bool} fromExternal - Whether exiting VR due to an external event (e.g.,
+     *   Oculus Browser GearVR back button).
      * @returns {Promise}
      */
     exitVR: {
-      value: function () {
+      value: function (fromExternal) {
         var self = this;
 
         // Don't exit VR if not in VR.
@@ -74075,10 +74109,14 @@ module.exports = registerElement('a-scene', {
 
         exitFullscreen();
 
-        if (this.checkHeadsetConnected() || this.isMobile) {
+        // Handle exiting VR if not yet already and in a headset or polyfill.
+        if (!fromExternal && (this.checkHeadsetConnected() || this.isMobile)) {
           return this.effect.exitPresent().then(exitVRSuccess, exitVRFailure);
         }
+
+        // Handle exiting VR in all other cases (2D fullscreen, external exit VR event).
         exitVRSuccess();
+
         return Promise.resolve();
 
         function exitVRSuccess () {
@@ -74101,6 +74139,22 @@ module.exports = registerElement('a-scene', {
             throw new Error('Failed to exit VR mode (`exitPresent`).');
           }
         }
+      }
+    },
+
+    /**
+     * Handle `vrdisplaypresentchange` event for exiting VR through other means than
+     * `<ESC>` key. For example, GearVR back button on Oculus Browser.
+     */
+    onVRPresentChange: {
+      value: function (evt) {
+        // Entering VR.
+        if (evt.display.isPresenting) {
+          this.enterVR(true);
+          return;
+        }
+        // Exiting VR.
+        this.exitVR(true);
       }
     },
 
@@ -74140,7 +74194,7 @@ module.exports = registerElement('a-scene', {
     },
 
     /**
-     * Wraps Entity.setAttribute to take into account for systems.
+     * Wrap Entity.setAttribute to take into account for systems.
      * If system exists, then skip component initialization checks and do a normal
      * setAttribute.
      */
@@ -74149,6 +74203,7 @@ module.exports = registerElement('a-scene', {
         var system = this.systems[attr];
         if (system) {
           ANode.prototype.setAttribute.call(this, attr, value);
+          system.updateProperties(value);
           return;
         }
         AEntity.prototype.setAttribute.call(this, attr, value, componentPropValue);
@@ -74160,10 +74215,17 @@ module.exports = registerElement('a-scene', {
      */
     removeBehavior: {
       value: function (behavior) {
+        var self = this;
         var behaviors = this.behaviors;
-        var index = behaviors.indexOf(behavior);
-        if (index === -1) { return; }
-        behaviors.splice(index, 1);
+        // Check if behavior has tick and/or tock and remove the behavior from the appropriate array.
+        Object.keys(behaviors).forEach(function (behaviorType) {
+          if (!behavior[behaviorType]) { return; }
+          var behaviorArr = self.behaviors[behaviorType];
+          var index = behaviorArr.indexOf(behavior);
+          if (index !== -1) {
+            behaviorArr.splice(index, 1);
+          }
+        });
       }
     },
 
@@ -74191,18 +74253,15 @@ module.exports = registerElement('a-scene', {
 
     setupRenderer: {
       value: function () {
-        var canvas = this.canvas;
-        // Set at startup. To enable/disable antialias
-        // at runttime we would have to recreate the whole context
-        var antialias = this.getAttribute('antialias') === 'true';
         var renderer = this.renderer = new THREE.WebGLRenderer({
-          canvas: canvas,
-          antialias: antialias || window.hasNativeWebVRImplementation,
+          canvas: this.canvas,
+          antialias: shouldAntiAlias(this),
           alpha: true
         });
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.sortObjects = false;
         this.effect = new THREE.VREffect(renderer);
+        this.effect.autoSubmitFrame = false;
       },
       writable: window.debug
     },
@@ -74239,7 +74298,8 @@ module.exports = registerElement('a-scene', {
               if (window.performance) {
                 window.performance.mark('render-started');
               }
-              sceneEl.render(0);
+              sceneEl.clock = new THREE.Clock();
+              sceneEl.render();
               sceneEl.renderStarted = true;
               sceneEl.emit('renderstart');
             }
@@ -74291,11 +74351,11 @@ module.exports = registerElement('a-scene', {
     tick: {
       value: function (time, timeDelta) {
         var systems = this.systems;
-
         // Animations.
-        TWEEN.update(time);
+        TWEEN.update();
+
         // Components.
-        this.behaviors.forEach(function (component) {
+        this.behaviors.tick.forEach(function (component) {
           if (!component.el.isPlaying) { return; }
           component.tick(time, timeDelta);
         });
@@ -74308,6 +74368,28 @@ module.exports = registerElement('a-scene', {
     },
 
     /**
+     * Behavior-updater meant to be called after scene render for post processing purposes.
+     * Abstracted to a different function to facilitate unit testing (`scene.tock()`) without
+     * needing to render.
+     */
+    tock: {
+      value: function (time, timeDelta) {
+        var systems = this.systems;
+
+        // Components.
+        this.behaviors.tock.forEach(function (component) {
+          if (!component.el.isPlaying) { return; }
+          component.tock(time, timeDelta);
+        });
+        // Systems.
+        Object.keys(systems).forEach(function (key) {
+          if (!systems[key].tock) { return; }
+          systems[key].tock(time, timeDelta);
+        });
+      }
+    },
+
+    /**
      * The render loop.
      *
      * Updates animations.
@@ -74315,15 +74397,19 @@ module.exports = registerElement('a-scene', {
      * Renders with request animation frame.
      */
     render: {
-      value: function (time) {
+      value: function () {
         var effect = this.effect;
-        var timeDelta = time - this.time;
+        var delta = this.clock.getDelta() * 1000;
+        this.time = this.clock.elapsedTime * 1000;
 
-        if (this.isPlaying) { this.tick(time, timeDelta); }
+        if (this.isPlaying) { this.tick(this.time, delta); }
 
         this.animationFrameID = effect.requestAnimationFrame(this.render);
-        effect.render(this.object3D, this.camera);
-        this.time = time;
+        effect.render(this.object3D, this.camera, this.renderTarget);
+
+        if (this.isPlaying) { this.tock(this.time, delta); }
+
+        this.effect.submitFrame();
       },
       writable: true
     }
@@ -74369,6 +74455,23 @@ function exitFullscreen () {
     document.webkitExitFullscreen();
   }
 }
+
+/**
+ * Determines if renderer anti-aliasing should be enabled.
+ * Enabled by default if has native WebVR or is desktop.
+ *
+ * @returns {bool}
+ */
+function shouldAntiAlias (sceneEl) {
+  // Explicitly set.
+  if (sceneEl.getAttribute('antialias') !== null) {
+    return sceneEl.getAttribute('antialias') === 'true';
+  }
+
+  // Default not AA for mobile.
+  return !sceneEl.isMobile;
+}
+module.exports.shouldAntiAlias = shouldAntiAlias;  // For testing.
 
 },{"../../lib/three":147,"../../utils/":169,"../a-entity":97,"../a-node":99,"../a-register-element":100,"../system":111,"./metaTags":105,"./postMessage":106,"./scenes":107,"./wakelock":108,"tween.js":49}],105:[function(_dereq_,module,exports){
 var constants = _dereq_('../../constants/');
