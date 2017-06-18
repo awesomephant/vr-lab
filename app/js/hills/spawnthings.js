@@ -27,10 +27,12 @@ AFRAME.registerComponent('spawnships', {
             animationEl.setAttribute('dur', getRandomInt(25000, 35000));
             animationEl.setAttribute('to', '800.667 ' + getRandomInt(20, 100) +  ' ' + getRandomInt(-50, 50));
             shipEl.appendChild(animationEl)
-                 
-   //         var particleEl = document.createElement('a-entity')
-  //          particleEl.setAttribute('particle-system', 'duration: 20; velocityValue: .1 .1 .1;velocitySpread: .0001 .0001 .0001;accelerationValue: .001 .001 .001;accelerationSpread: .001 .001 .001; texture: ../images/smokeparticle.png; color: #FFFFFF');
- //           shipEl.appendChild(particleEl)
+            
+            var soundEl = document.createElement('a-sound')
+            soundEl.setAttribute('src', '#sound-ship');
+            soundEl.setAttribute('volume', '.1');
+            soundEl.setAttribute('autoplay', 'true');
+            shipEl.appendChild(soundEl)
 
             setTimeout(spawn, getRandomInt(5000, 15000));
         };

@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <a-scene spawnships antialias="false">
+    <a-scene spawnships antialias="false" fog='type: exponential; color: #FFB2B6;density: .002; '>
         <a-assets>
             <a-asset-item id="_hills" src="models/mountain/mountain.obj"></a-asset-item>
             <a-asset-item id="_landscape" src="models/mountain/landscape.obj"></a-asset-item>
@@ -61,8 +61,7 @@
         <a-entity hover position='-4 3 4.3' scale='3 1.8 1.8' rotation='-22 180 180' obj-model="obj: #rock-5"></a-entity>
         <a-entity id='hills' scale='4 4 4' material='color: #43A4F8; roughness: 1; shader:standard;' obj-model="obj: #_hills" shadow="cast: true; receive: true"></a-entity>
 
-        <a-entity position='147 -25 110' rotation='' id='landscape' scale='4 4 4' material='color: #FF344B; roughness: 1; shader:standard;'
-            obj-model="obj: #_landscape"></a-entity>
+        <a-entity position='147 5.2 110' rotation='' id='landscape' scale='4 4 4' material='color: #FF344B; roughness: 1; shader:standard;'obj-model="obj: #_landscape"></a-entity>
         <a-entity position='147 -88 -161' id='landscape' scale='4 4 4' material='color: #FF344B; roughness: 1; shader:standard;'
             obj-model="obj: #_landscape" shadow="cast: true; receive: true">
             <a-entity position='0 -4 0' id='obelisk' scale='1.1 1.1 1.1' material='fog: false; color: #000000; roughness: 1; shader:standard;'
